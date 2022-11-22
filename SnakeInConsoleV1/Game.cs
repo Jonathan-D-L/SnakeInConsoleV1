@@ -35,21 +35,28 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
+                    int prev = 0;
+                    int current = 0;
                     foreach (var s in snake)
                     {
-
-                        for (int y = 0; y < gridY.Length; y++)
+                        prev = current;
+                        current = s.posY;
+                        for (int i = 0; i < current-prev; i++)
                         {
                             Console.Write("\r\n");
-                            if (y == s.posY)
+                        }
+                        for (int y = 0; y < gridY.Length; y++)
+                        {
+
+                            for (int x = 0; x < gridX.Length; x++)
                             {
-                                for (int x = 0; x < gridX.Length; x++)
+                                if (x == s.posX && y == s.posY)
+                                {
+                                    Console.Write("[]");
+                                }
+                                else if (x != s.posX && y == s.posY)
                                 {
                                     Console.Write("| ");
-                                    if (x == s.posX)
-                                    {
-                                        Console.Write("[]");
-                                    }
                                 }
                             }
                         }
