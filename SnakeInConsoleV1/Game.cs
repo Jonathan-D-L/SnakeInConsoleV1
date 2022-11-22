@@ -53,14 +53,17 @@ namespace SnakeInConsoleV1
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                         for (int x = 0; x < gridX.Length; x++)
                         {
-                            var s = snake[0];
+                            var s = snake[index];
                             if (y == s.posY && x == s.posX)
                             {
                                 if (index == snake.Count - 1)
                                 {
                                     index = 0;
                                 }
-                                index++;
+                                else
+                                {
+                                    index++;
+                                }
                                 AnsiConsole.Write(bluePixel);
                                 posCursor = (x * 2) + 4;
                                 Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
@@ -92,53 +95,3 @@ namespace SnakeInConsoleV1
 
     }
 }
-
-//int yCount = 0;
-//int xCount = 0;
-//foreach (var s in snake)
-//{
-//    if (s.posX == xCount)
-//    {
-//        for (int x = xCount; x <= s.posX; x++)
-//        {
-//            if (s.posX == x)
-//            {
-//                Console.Write("[]");
-//                xCount = 0;
-//                break;
-//            }
-//            else
-//            {
-//                Console.Write("  ");
-//            }
-//        }
-//    }
-//    else
-//    {
-//        for (int y = yCount; y <= s.posY; y++)
-//        {
-//            if (s.posY == y)
-//            {
-//                for (int x = xCount; x <= s.posX; x++)
-//                {
-//                    if (s.posX == x)
-//                    {
-//                        Console.Write("[]");
-//                        xCount =x;
-//                        yCount =y;
-//                        break;
-//                    }
-//                    else
-//                    {
-//                        Console.Write("  ");
-//                    }
-//                }
-//                break;
-//            }
-//            else
-//            {
-//                Console.Write("\r\n");
-//            }
-//        }
-//    }
-//}
