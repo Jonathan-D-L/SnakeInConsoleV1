@@ -35,28 +35,39 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
-                    int prev = 0;
-                    int current = 0;
+                    int prevY = 0;
+                    int currentY = 0;
+                    int prevX = 0;
+                    int currentX = 0;
                     foreach (var s in snake)
                     {
-                        prev = current;
-                        current = s.posY;
-                        for (int i = 0; i < current-prev; i++)
+                        prevY = currentY;
+                        currentY = s.posY;
+                        for (int i = 0; i < currentY-prevY; i++)
                         {
-                            Console.Write("\r\n");
+                            if (prevX != s.posX)
+                            {
+                                Console.Write("\r\n");
+                            }
                         }
                         for (int y = 0; y < gridY.Length; y++)
                         {
 
+                            prevX = currentX;
+                            currentX = s.posX;
+
+                            for (int i = 0; i < s.posX; i++)
+                            {
+                                if (prevY != s.posY && prevX != s.posX)
+                                {
+                                    Console.Write("%%");
+                                }
+                            }
                             for (int x = 0; x < gridX.Length; x++)
                             {
                                 if (x == s.posX && y == s.posY)
                                 {
                                     Console.Write("[]");
-                                }
-                                else if (x != s.posX && y == s.posY)
-                                {
-                                    Console.Write("| ");
                                 }
                             }
                         }

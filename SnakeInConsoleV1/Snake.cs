@@ -44,9 +44,9 @@ namespace SnakeInConsoleV1
                 snakeLength.Add(snakeStart0);
                 var snakeStart1 = new Snake(posX = 5, posY = 4);
                 snakeLength.Add(snakeStart1);
-                var snakeStart2 = new Snake(posX = 6, posY = 4);
+                var snakeStart2 = new Snake(posX = 6, posY = 6);
                 snakeLength.Add(snakeStart2);
-                var snakeStart3 = new Snake(posX = 6, posY = 5);
+                var snakeStart3 = new Snake(posX = 7, posY = 7);
                 snakeLength.Add(snakeStart3);
             }
             return snakeLength;
