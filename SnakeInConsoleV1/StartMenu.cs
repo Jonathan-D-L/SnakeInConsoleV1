@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {
-    internal class StartMenu
+    internal class Start
     {
-        public void Menu()
+        public void SetWindowProp()
         {
             DisableFunctionsConsoleWindow();
             Console.SetWindowSize(61, 29);

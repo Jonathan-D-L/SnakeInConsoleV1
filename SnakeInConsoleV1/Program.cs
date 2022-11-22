@@ -1,4 +1,4 @@
 ﻿using SnakeInConsoleV1;
 
-var start = new StartMenu();
-start.Menu();
+var start = new Start();
+start.SetWindowProp();
