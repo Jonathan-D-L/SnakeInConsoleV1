@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -40,14 +41,24 @@ namespace SnakeInConsoleV1
         {
             if (snakeLength.Count == 0)
             {
-                var snakeStart0 = new Snake(posX = 4, posY = 4); //maxX = 56, maxY = 26.
-                snakeLength.Add(snakeStart0);
-                var snakeStart1 = new Snake(posX = 5, posY = 4);
-                snakeLength.Add(snakeStart1);
-                var snakeStart2 = new Snake(posX = 6, posY = 6);
-                snakeLength.Add(snakeStart2);
-                var snakeStart3 = new Snake(posX = 7, posY = 7);
-                snakeLength.Add(snakeStart3);
+                 //maxX = 56, maxY = 26.
+                snakeLength.Add(new Snake { posX=1,posY=1});
+                snakeLength.Add(new Snake { posX=2,posY=2});
+                snakeLength.Add(new Snake { posX=3,posY=3});
+                snakeLength.Add(new Snake { posX=4,posY=4});
+                snakeLength.Add(new Snake { posX=5,posY=5});
+                snakeLength.Add(new Snake { posX=5,posY=6});
+                snakeLength.Add(new Snake { posX=5,posY=7});
+                snakeLength.Add(new Snake { posX=5,posY=8});
+                snakeLength.Add(new Snake { posX=8,posY=9});
+                snakeLength.Add(new Snake { posX=10,posY=9});
+                snakeLength.Add(new Snake { posX=11,posY=9});
+                snakeLength.Add(new Snake { posX=12,posY=9});
+                snakeLength.Add(new Snake { posX=12,posY=11});
+                snakeLength.Add(new Snake { posX=14,posY=11});
+                snakeLength.Add(new Snake { posX=12,posY=12});
+                snakeLength.Add(new Snake { posX=14,posY=12});
+
             }
             return snakeLength;
 
