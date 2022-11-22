@@ -44,37 +44,15 @@ namespace SnakeInConsoleV1
                 //maxX = 56, maxY = 26.
                 snakeLength.Add(new Snake { posX = 5, posY = 0 });
                 snakeLength.Add(new Snake { posX = 6, posY = 0 });
-
-
+                snakeLength.Add(new Snake { posX = 7, posY = 0 });
+                snakeLength.Add(new Snake { posX = 8, posY = 0 });
             }
             return snakeLength;
-
         }
 
         public void MoveSnake(char action)
         {
-            bool input = false;
-            if (action == 'w')
-            {
-                snakeLength.Select(s => s).First().posY--;
-                input = true;
-            }
-            if (action == 's')
-            {
-                snakeLength.Select(s => s).First().posY++;
-                input = true;
-            }
-            if (action == 'a')
-            {
-                snakeLength.Select(s => s).First().posX--;
-                input = true;
-            }
-            if (action == 'd')
-            {
-                snakeLength.Select(s => s).First().posX++;
-                input = true;
-            }
-            if (input == true)
+            if (action != '0')
             {
                 int prevY = -1;
                 int currentY = -1;
@@ -92,9 +70,23 @@ namespace SnakeInConsoleV1
                         s.posY = prevY;
                     }
                 }
-                input = false;
+                if (action == 'w')
+                {
+                    snakeLength.Select(s => s).First().posY--;
+                }
+                if (action == 's')
+                {
+                    snakeLength.Select(s => s).First().posY++;
+                }
+                if (action == 'a')
+                {
+                    snakeLength.Select(s => s).First().posX--;
+                }
+                if (action == 'd')
+                {
+                    snakeLength.Select(s => s).First().posX++;
+                }
             }
-
         }
     }
 }

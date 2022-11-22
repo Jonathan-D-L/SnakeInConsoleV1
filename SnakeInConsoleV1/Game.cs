@@ -39,6 +39,7 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
+                    var snake1 = snake.OrderBy(s => s.posY).ThenBy(s=>s.posX).ToList();
                     for (int x = 0; x <= gridX.Length + 1; x++)
                     {
                         AnsiConsole.Write(darkGreenPixel);
@@ -46,6 +47,7 @@ namespace SnakeInConsoleV1
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
                     Console.Write("\r\n");
+
                     for (int y = 0; y < gridY.Length; y++)
                     {
                         AnsiConsole.Write(darkGreenPixel);
@@ -53,7 +55,7 @@ namespace SnakeInConsoleV1
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                         for (int x = 0; x < gridX.Length; x++)
                         {
-                            var s = snake[index];
+                            var s = snake1[index];
                             if (y == s.posY && x == s.posX)
                             {
                                 if (index == snake.Count - 1)
@@ -75,6 +77,7 @@ namespace SnakeInConsoleV1
                                 Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                             }
                         }
+
                         AnsiConsole.Write(darkGreenPixel);
                         posCursor = 56;
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
@@ -86,7 +89,7 @@ namespace SnakeInConsoleV1
                         posCursor = (x * 2) + 2;
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(1000);
                 }
                 action = '0';
                 readKey = true;
