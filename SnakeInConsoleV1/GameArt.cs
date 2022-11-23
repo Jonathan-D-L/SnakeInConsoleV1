@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using SixLabors.ImageSharp.ColorSpaces;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,22 @@ namespace SnakeInConsoleV1
     {
         public void startMenuArt()
         {
-            var test = new CanvasImage("images\\test.png");
+            var startImg = new CanvasImage("images\\Start.png");
             while (!Console.KeyAvailable)
             {
                 Console.Clear();
-                AnsiConsole.Write(test);
-                Console.SetCursorPosition(15, Console.CursorTop - 6);
-                Console.Write($"                             \r\n");
+                AnsiConsole.Write(startImg);
+                //Console.BackgroundColor = AnsiConsole.Background = new Color(192, 222, 114);
+                Console.SetCursorPosition(17, Console.CursorTop - 6);
+                Console.Write($"                         \r\n");
                 Console.SetCursorPosition(15, Console.CursorTop);
-                Console.Write($"   -press any key to start   \r\n");
-                Console.SetCursorPosition(15, Console.CursorTop);
-                Console.Write($"                             ");
+                string a = "20 32 32";
+                Console.Write($"   -PRESS ANY KEY TO START   \r\n");
+                Console.SetCursorPosition(17, Console.CursorTop);
+                Console.Write($"                         ");
                 System.Threading.Thread.Sleep(1000);
             }
+            Console.ReadKey(false);
         }
     }
 }

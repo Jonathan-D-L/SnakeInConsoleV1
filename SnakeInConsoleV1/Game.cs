@@ -28,8 +28,6 @@ namespace SnakeInConsoleV1.Models
             var action = '0';
             bool lost = false;
             var preventFastInput = new List<char>() { '0' };
-            
-            
             var fruit = getFruit.SpawnFruit();
             while (true)
             {
@@ -80,7 +78,6 @@ namespace SnakeInConsoleV1.Models
                         .FirstOrDefault();
                     if (snake.Any(s => s.posX == -1 || s.posX == 28 || s.posY == -1 || s.posY == 26 || snakeColided != null))
                     {
-                        //AnsiConsole.Write();
                         lost = true;
                         break;
                     }
@@ -151,6 +148,11 @@ namespace SnakeInConsoleV1.Models
                     break;
                 }
             }
+            //=> GameArtLost
+            Console.WriteLine("game over");
+            Console.ReadKey();
+            var goToStart = new StartMenu();
+            goToStart.ShowStartMenu();
         }
 
     }
