@@ -25,6 +25,7 @@ namespace SnakeInConsoleV1
             var action = '0';
             var prevAction = '1';
             bool lost = false;
+            var preventFastInput = new List<char>() { '0' };
             while (true)
             {
                 var snake = getSnake.SnakeLength();
@@ -34,17 +35,30 @@ namespace SnakeInConsoleV1
                     if (key.KeyChar == 'w' && action == 's' ||
                         key.KeyChar == 's' && action == 'w' ||
                         key.KeyChar == 'a' && action == 'd' ||
-                        key.KeyChar == 'd' && action == 'a')
+                        key.KeyChar == 'd' && action == 'a' ||
+                        key.KeyChar == 'w' && action == 'w' ||
+                        key.KeyChar == 's' && action == 's' ||
+                        key.KeyChar == 'a' && action == 'a' ||
+                        key.KeyChar == 'd' && action == 'd')
                     {
+
                     }
-                    else
-                        action = key.KeyChar; // if not wasd dont
+                    else if (preventFastInput.Count <= 1)
+                    {
+                        preventFastInput.Add(key.KeyChar);
+                    }
                     readKey = false;
                 }
                 int index = 0;
                 int posCursor = 0;
                 while (!Console.KeyAvailable)
                 {
+                    preventFastInput.Reverse();
+                    action = preventFastInput.First();
+                    if (preventFastInput.Count > 1)
+                    {
+                        preventFastInput.RemoveAt(1);
+                    }
                     Console.Clear();
                     getSnake.MoveSnake(action);
                     var snakeColided = snake
@@ -53,7 +67,7 @@ namespace SnakeInConsoleV1
                         .Count() > 1)
                         .Select(g => g.Key)
                         .FirstOrDefault();
-                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25 || snakeColided != null))
+                    if (snake.Any(s => s.posX == -1 || s.posX == 28 || s.posY == -1 || s.posY == 26 || snakeColided != null))
                     {
                         //AnsiConsole.Write();
                         lost = true;
@@ -108,7 +122,7 @@ namespace SnakeInConsoleV1
                         posCursor = (x * 2) + 2;
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(250);
                 }
                 readKey = true;
                 if (lost == true)
