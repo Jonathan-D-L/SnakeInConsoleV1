@@ -46,6 +46,9 @@ namespace SnakeInConsoleV1
                 snakeLength.Add(new Snake { posX = 6, posY = 0 });
                 snakeLength.Add(new Snake { posX = 7, posY = 0 });
                 snakeLength.Add(new Snake { posX = 8, posY = 0 });
+                snakeLength.Add(new Snake { posX = 9, posY = 0 });
+                snakeLength.Add(new Snake { posX = 10, posY = 0 });
+                snakeLength.Add(new Snake { posX = 11, posY = 0 });
             }
             return snakeLength;
         }

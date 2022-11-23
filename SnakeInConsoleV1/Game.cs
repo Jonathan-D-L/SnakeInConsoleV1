@@ -41,6 +41,18 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
+                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25))
+                    {
+                        //AnsiConsole.Write();
+                        lost = true;
+                        break;
+                    }
+                    var a = snake.GroupBy(i => new { i.posY, i.posX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
+                    if (a != null)
+                    {
+                        lost = true;
+                        break;
+                    }
                     var snake1 = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
                     for (int x = 0; x <= gridX.Length + 1; x++)
                     {
@@ -92,12 +104,7 @@ namespace SnakeInConsoleV1
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
                     System.Threading.Thread.Sleep(500);
-                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25))
-                    {
-                        //AnsiConsole.Write();
-                        lost = true;
-                        break;
-                    }
+
                 }
                 action = '0';
                 readKey = true;
