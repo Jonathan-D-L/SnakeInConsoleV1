@@ -18,6 +18,8 @@ namespace SnakeInConsoleV1
             var greenPixel = new CanvasImage("images\\GreenPixel.png");
             var darkGreenPixel = new CanvasImage("images\\DarkGreenPixel.png");
             var orangePixel = new CanvasImage("images\\OrangePixel.png");
+            var test = new CanvasImage("images\\test.png");
+                
             var getSnake = new Snake();
             bool readKey = false;
             var gridY = new int[26];
@@ -26,6 +28,9 @@ namespace SnakeInConsoleV1
             var prevAction = '1';
             bool lost = false;
             var preventFastInput = new List<char>() { '0' };
+            AnsiConsole.Write(test);
+            Console.SetCursorPosition(60, Console.CursorTop - 1);
+            Console.ReadKey();
             while (true)
             {
                 var snake = getSnake.SnakeLength();
