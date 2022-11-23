@@ -26,7 +26,6 @@ namespace SnakeInConsoleV1
             var gridY = new int[26];
             var gridX = new int[28];
             var action = '0';
-            var prevAction = '1';
             bool lost = false;
             bool snakeEatFruit = false;
             var preventFastInput = new List<char>() { '0' };
