@@ -37,16 +37,39 @@ namespace SnakeInConsoleV1.Models
             get { return _posX; }
             set { _posX = value; }
         }
-        public List<Snake> SnakeLength(bool snakeEatFruit)
+        public List<Snake> getSnakehead()
         {
             if (snakeLength.Count == 0)
             {
                 snakeLength.Add(new Snake { posX = 13, posY = 12 });
             }
-            if (snakeEatFruit == true)
+            return snakeLength;
+        }
+        public List<Snake> getSnakeTail(List<Fruit> fruit, char currentDir)
+        {
+            var dirX = 0;
+            var dirY = 0;
+            if (currentDir == 'w')
             {
-                snakeLength.Add(new Snake { posX = 0, posY = 0 });
+                dirY = -1;
+                dirX = 0;
             }
+            if (currentDir == 's')
+            {
+                dirY = 1;
+                dirX = 0;
+            }
+            if (currentDir == 'a')
+            {
+                dirY = 0;
+                dirX = -1;
+            }
+            if (currentDir == 'd')
+            {
+                dirY = 0;
+                dirX = 1;
+            }
+            snakeLength.Add(new Snake { posX = fruit.Last().posX + dirX, posY = fruit.Last().posY + dirY });
             return snakeLength;
         }
 

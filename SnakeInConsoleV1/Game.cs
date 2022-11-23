@@ -27,7 +27,6 @@ namespace SnakeInConsoleV1.Models
             var gridX = new int[28];
             var action = '0';
             bool lost = false;
-            bool snakeEatFruit = false;
             var preventFastInput = new List<char>() { '0' };
             var countDots = 0;
             while (!Console.KeyAvailable)
@@ -56,7 +55,7 @@ namespace SnakeInConsoleV1.Models
             var fruit = getFruit.SpawnFruit();
             while (true)
             {
-                var snake = getSnake.SnakeLength(snakeEatFruit);
+                var snake = getSnake.getSnakehead();
                 if (readKey == true)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
@@ -91,10 +90,9 @@ namespace SnakeInConsoleV1.Models
                     getSnake.MoveSnake(action);
                     if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
                     {
+                        getSnake.getSnakeTail(fruit, action);
                         fruit = getFruit.SpawnFruit();
-                        snakeEatFruit = true;
-                        getSnake.SnakeLength(snakeEatFruit);
-                        snakeEatFruit = false;
+
                     }
                     var snakeColided = snake
                         .GroupBy(i => new { i.posY, i.posX })

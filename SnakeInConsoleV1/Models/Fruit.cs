@@ -32,9 +32,8 @@ namespace SnakeInConsoleV1.Models
         }
         public List<Fruit> SpawnFruit()
         {
-            bool snakeEatFruit = false;
             var getSnake = new Snake();
-            var snake = getSnake.SnakeLength(snakeEatFruit);
+            var snake = getSnake.getSnakehead();
             var rand = new Random();
             while (true)
             {
@@ -50,6 +49,10 @@ namespace SnakeInConsoleV1.Models
                     break;
                 }
             }
+            return fruit;
+        }
+        public List<Fruit> GetFruitPos()
+        {
             return fruit;
         }
     }
