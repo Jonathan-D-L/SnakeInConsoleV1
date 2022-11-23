@@ -19,20 +19,26 @@ namespace SnakeInConsoleV1
             var darkGreenPixel = new CanvasImage("images\\DarkGreenPixel.png");
             var orangePixel = new CanvasImage("images\\OrangePixel.png");
             var getSnake = new Snake();
-            var action = '0';
             bool readKey = false;
             var gridY = new int[26];
             var gridX = new int[28];
+            var action = '0';
+            var prevAction = '1';
             bool lost = false;
             while (true)
             {
                 var snake = getSnake.SnakeLength();
-                //var posCursor = X.Length + 1;
-                //Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                 if (readKey == true)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    action = key.KeyChar; // if not wasd dont
+                    if (key.KeyChar == 'w' && action == 's' ||
+                        key.KeyChar == 's' && action == 'w' ||
+                        key.KeyChar == 'a' && action == 'd' ||
+                        key.KeyChar == 'd' && action == 'a')
+                    {
+                    }
+                    else
+                        action = key.KeyChar; // if not wasd dont
                     readKey = false;
                 }
                 int index = 0;
@@ -41,15 +47,15 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
-                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25))
+                    var snakeColided = snake
+                        .GroupBy(i => new { i.posY, i.posX })
+                        .Where(g => g
+                        .Count() > 1)
+                        .Select(g => g.Key)
+                        .FirstOrDefault();
+                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25 || snakeColided != null))
                     {
                         //AnsiConsole.Write();
-                        lost = true;
-                        break;
-                    }
-                    var a = snake.GroupBy(i => new { i.posY, i.posX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
-                    if (a != null)
-                    {
                         lost = true;
                         break;
                     }
@@ -91,7 +97,6 @@ namespace SnakeInConsoleV1
                                 Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                             }
                         }
-
                         AnsiConsole.Write(darkGreenPixel);
                         posCursor = 56;
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
@@ -104,9 +109,7 @@ namespace SnakeInConsoleV1
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
                     System.Threading.Thread.Sleep(500);
-
                 }
-                action = '0';
                 readKey = true;
                 if (lost == true)
                 {
