@@ -29,9 +29,30 @@ namespace SnakeInConsoleV1
             bool lost = false;
             bool snakeEatFruit = false;
             var preventFastInput = new List<char>() { '0' };
-            AnsiConsole.Write(test);
-            Console.SetCursorPosition(60, Console.CursorTop - 1);
-            Console.ReadKey();
+            var countDots = 0;
+            while (!Console.KeyAvailable)
+            {
+                Console.Clear();
+                AnsiConsole.Write(test);
+                Console.SetCursorPosition(15, Console.CursorTop - 6);
+                Console.Write($"                             \r\n");
+                Console.SetCursorPosition(15, Console.CursorTop);
+                if (countDots == 0)
+                    Console.Write($"  press any key to start     \r\n");
+                if (countDots == 1)
+                    Console.Write($"  press any key to start.    \r\n");
+                if (countDots == 2)
+                    Console.Write($"  press any key to start..   \r\n");
+                if (countDots == 3)
+
+                    Console.Write($"  press any key to start...  \r\n");
+                countDots++;
+                if (countDots == 4)
+                    countDots = 0;
+                Console.SetCursorPosition(15, Console.CursorTop);
+                Console.Write($"                             ");
+                System.Threading.Thread.Sleep(500);
+            }
             var fruit = getFruit.SpawnFruit();
             while (true)
             {
