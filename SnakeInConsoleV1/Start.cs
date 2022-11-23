@@ -16,8 +16,8 @@ namespace SnakeInConsoleV1.Models
             Console.SetBufferSize(61, 29);
             Console.SetWindowSize(61, 29);
             Console.CursorVisible = false;
-            var playGame = new Game();
-            playGame.PlayGame();
+            var showStartMenu = new StartMenu();
+            showStartMenu.ShowStartMenu();
         }
         private const int MF_BYCOMMAND = 0x00000000;
         public const int SC_CLOSE = 0xF060;
