@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
@@ -22,6 +23,7 @@ namespace SnakeInConsoleV1
             bool readKey = false;
             var gridY = new int[26];
             var gridX = new int[28];
+            bool lost = false;
             while (true)
             {
                 var snake = getSnake.SnakeLength();
@@ -39,7 +41,7 @@ namespace SnakeInConsoleV1
                 {
                     Console.Clear();
                     getSnake.MoveSnake(action);
-                    var snake1 = snake.OrderBy(s => s.posY).ThenBy(s=>s.posX).ToList();
+                    var snake1 = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
                     for (int x = 0; x <= gridX.Length + 1; x++)
                     {
                         AnsiConsole.Write(darkGreenPixel);
@@ -89,10 +91,21 @@ namespace SnakeInConsoleV1
                         posCursor = (x * 2) + 2;
                         Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                     }
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(500);
+                    if (snake.Any(s => s.posX == 0 || s.posX == 27 || s.posY == -1 || s.posY == 25))
+                    {
+                        //AnsiConsole.Write();
+                        lost = true;
+                        break;
+                    }
                 }
                 action = '0';
                 readKey = true;
+                if (lost == true)
+                {
+                    lost = false;
+                    break;
+                }
             }
         }
 
