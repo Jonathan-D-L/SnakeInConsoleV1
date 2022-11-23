@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SnakeInConsoleV1.Models;
 
-namespace SnakeInConsoleV1
+namespace SnakeInConsoleV1.Models
 {
     public class Fruit
     {

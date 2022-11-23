@@ -12,7 +12,7 @@ using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace SnakeInConsoleV1
+namespace SnakeInConsoleV1.Models
 {
     public class Snake
     {
@@ -45,7 +45,7 @@ namespace SnakeInConsoleV1
             }
             if (snakeEatFruit == true)
             {
-                snakeLength.Add(new Snake { posX = 0, posY = 0});
+                snakeLength.Add(new Snake { posX = 0, posY = 0 });
             }
             return snakeLength;
         }

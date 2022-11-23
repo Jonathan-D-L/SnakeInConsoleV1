@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnakeInConsoleV1
+namespace SnakeInConsoleV1.Models
 {
     internal class Start
     {

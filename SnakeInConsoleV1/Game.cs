@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace SnakeInConsoleV1
+namespace SnakeInConsoleV1.Models
 {
     internal class Game
     {
