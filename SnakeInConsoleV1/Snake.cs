@@ -37,12 +37,15 @@ namespace SnakeInConsoleV1
             get { return _posX; }
             set { _posX = value; }
         }
-        public List<Snake> SnakeLength()
+        public List<Snake> SnakeLength(bool snakeEatFruit)
         {
             if (snakeLength.Count == 0)
             {
-                //maxX = 56, maxY = 26.
                 snakeLength.Add(new Snake { posX = 13, posY = 12 });
+            }
+            if (snakeEatFruit == true)
+            {
+                snakeLength.Add(new Snake { posX = 0, posY = 0});
             }
             return snakeLength;
         }

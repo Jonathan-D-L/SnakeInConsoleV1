@@ -19,21 +19,24 @@ namespace SnakeInConsoleV1
             var darkGreenPixel = new CanvasImage("images\\DarkGreenPixel.png");
             var orangePixel = new CanvasImage("images\\OrangePixel.png");
             var test = new CanvasImage("images\\test.png");
-                
+
             var getSnake = new Snake();
+            var getFruit = new Fruit();
             bool readKey = false;
             var gridY = new int[26];
             var gridX = new int[28];
             var action = '0';
             var prevAction = '1';
             bool lost = false;
+            bool snakeEatFruit = false;
             var preventFastInput = new List<char>() { '0' };
             AnsiConsole.Write(test);
             Console.SetCursorPosition(60, Console.CursorTop - 1);
             Console.ReadKey();
+            var fruit = getFruit.SpawnFruit();
             while (true)
             {
-                var snake = getSnake.SnakeLength();
+                var snake = getSnake.SnakeLength(snakeEatFruit);
                 if (readKey == true)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
@@ -66,6 +69,13 @@ namespace SnakeInConsoleV1
                     }
                     Console.Clear();
                     getSnake.MoveSnake(action);
+                    if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
+                    {
+                        fruit = getFruit.SpawnFruit();
+                        snakeEatFruit = true;
+                        getSnake.SnakeLength(snakeEatFruit);
+                        snakeEatFruit = false;
+                    }
                     var snakeColided = snake
                         .GroupBy(i => new { i.posY, i.posX })
                         .Where(g => g
@@ -105,15 +115,24 @@ namespace SnakeInConsoleV1
                                 {
                                     index++;
                                 }
-                                AnsiConsole.Write(bluePixel);
+                                AnsiConsole.Write(darkGreenPixel);
                                 posCursor = (x * 2) + 4;
                                 Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
                             }
                             else
                             {
-                                AnsiConsole.Write(greenPixel);
-                                posCursor = (x * 2) + 4;
-                                Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                if (y == fruit.First().posY && x == fruit.First().posX)
+                                {
+                                    AnsiConsole.Write(orangePixel);
+                                    posCursor = (x * 2) + 4;
+                                    Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                }
+                                else
+                                {
+                                    AnsiConsole.Write(greenPixel);
+                                    posCursor = (x * 2) + 4;
+                                    Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                }
                             }
                         }
                         AnsiConsole.Write(darkGreenPixel);
