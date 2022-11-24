@@ -14,11 +14,6 @@ namespace SnakeInConsoleV1.Models
     {
         public void PlayGame()
         {
-            var bluePixel = new CanvasImage("images\\BluePixel.png");
-            var greenPixel = new CanvasImage("images\\GreenPixel.png");
-            var darkGreenPixel = new CanvasImage("images\\DarkGreenPixel.png");
-            var orangePixel = new CanvasImage("images\\OrangePixel.png");
-
             var getSnake = new Snake();
             var getFruit = new Fruit();
             var getGameArt = new GameArt();
