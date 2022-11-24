@@ -84,17 +84,13 @@ namespace SnakeInConsoleV1.Models
                     var snake1 = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
                     for (int x = 0; x <= gridX.Length + 1; x++)
                     {
-                        AnsiConsole.Write(darkGreenPixel);
-                        posCursor = (x * 2) + 2;
-                        Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                     }
                     Console.Write("\r\n");
 
                     for (int y = 0; y < gridY.Length; y++)
                     {
-                        AnsiConsole.Write(darkGreenPixel);
-                        posCursor = 2;
-                        Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                         for (int x = 0; x < gridX.Length; x++)
                         {
                             var s = snake1[index];
@@ -108,36 +104,26 @@ namespace SnakeInConsoleV1.Models
                                 {
                                     index++;
                                 }
-                                AnsiConsole.Write(darkGreenPixel);
-                                posCursor = (x * 2) + 4;
-                                Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                             }
                             else
                             {
                                 if (y == fruit.First().posY && x == fruit.First().posX)
                                 {
-                                    AnsiConsole.Write(orangePixel);
-                                    posCursor = (x * 2) + 4;
-                                    Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                    AnsiConsole.Markup($"[on rgb(230,31,0)]  [/]");
                                 }
                                 else
                                 {
-                                    AnsiConsole.Write(greenPixel);
-                                    posCursor = (x * 2) + 4;
-                                    Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                                    AnsiConsole.Markup($"[on rgb(192,222,114)]  [/]");
                                 }
                             }
                         }
-                        AnsiConsole.Write(darkGreenPixel);
-                        posCursor = 56;
-                        Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                         Console.Write("\r\n");
                     }
                     for (int x = 0; x <= gridX.Length + 1; x++)
                     {
-                        AnsiConsole.Write(darkGreenPixel);
-                        posCursor = (x * 2) + 2;
-                        Console.SetCursorPosition(posCursor, Console.CursorTop - 1);
+                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                     }
                     System.Threading.Thread.Sleep(250);
                 }

@@ -11,6 +11,11 @@ namespace SnakeInConsoleV1
     {
         public void ShowStartMenu()
         {
+            //Console.BackgroundColor = ConsoleColor.Green;
+            //Console.WriteLine(" sadasd");
+            //Console.BackgroundColor = ConsoleColor.DarkGreen;
+            //Console.WriteLine(" sadasd");
+            //Console.ReadKey();
             var getGameArt = new GameArt();
             getGameArt.startMenuArt();
             var playGame = new Game();

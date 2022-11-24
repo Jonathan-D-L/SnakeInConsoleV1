@@ -13,18 +13,13 @@ namespace SnakeInConsoleV1
         public void startMenuArt()
         {
             var startImg = new CanvasImage("images\\Start.png");
+            Console.CursorVisible = true;
             while (!Console.KeyAvailable)
             {
                 Console.Clear();
                 AnsiConsole.Write(startImg);
-                //Console.BackgroundColor = AnsiConsole.Background = new Color(192, 222, 114);
-                Console.SetCursorPosition(17, Console.CursorTop - 6);
-                Console.Write($"                         \r\n");
-                Console.SetCursorPosition(15, Console.CursorTop);
-                string a = "20 32 32";
-                Console.Write($"   -PRESS ANY KEY TO START   \r\n");
-                Console.SetCursorPosition(17, Console.CursorTop);
-                Console.Write($"                         ");
+                Console.SetCursorPosition(15, Console.CursorTop - 6);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]   -PRESS ANY KEY TO START   [/]");
                 System.Threading.Thread.Sleep(1000);
             }
             Console.ReadKey(false);
