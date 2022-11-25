@@ -85,9 +85,6 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-
-
-
                             AnsiConsole.Markup($"[white on rgb(78,95,39)]  [/]");
                         }
                         else
@@ -111,9 +108,8 @@ namespace SnakeInConsoleV1.Models
                 }
                 System.Threading.Thread.Sleep(250);
             }
-            //=> GameArtLost
-            Console.WriteLine("game over");
-            Console.ReadKey();
+            getGameArt.GameOverArt();
+            
             var goToStart = new StartMenu();
             goToStart.ShowStartMenu();
         }
