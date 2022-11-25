@@ -37,39 +37,23 @@ namespace SnakeInConsoleV1.Models
             get { return _posX; }
             set { _posX = value; }
         }
-        public List<Snake> getSnakehead()
+        public List<Snake> GetSnake()
         {
             if (snakeLength.Count == 0)
             {
                 snakeLength.Add(new Snake { posX = 13, posY = 12 });
+                snakeLength.Add(new Snake { posX = 13, posY = 13 });
             }
             return snakeLength;
         }
-        public List<Snake> getSnakeTail(List<Fruit> fruit, char currentDir)
+        public List<Snake> getSnakeTail()
         {
-            var dirX = 0;
-            var dirY = 0;
-            if (currentDir == 'w')
-            {
-                dirY = -1;
-                dirX = 0;
-            }
-            if (currentDir == 's')
-            {
-                dirY = 1;
-                dirX = 0;
-            }
-            if (currentDir == 'a')
-            {
-                dirY = 0;
-                dirX = -1;
-            }
-            if (currentDir == 'd')
-            {
-                dirY = 0;
-                dirX = 1;
-            }
-            snakeLength.Add(new Snake { posX = fruit.Last().posX + dirX, posY = fruit.Last().posY + dirY });
+            var snake = snakeLength.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
+            var snakeLast = snake.Last();
+            var snakeNextLast = snake[snake.Count - 2];
+            var tailY = snakeLast.posY - snakeNextLast.posY;
+            var tailX = snakeLast.posX - snakeNextLast.posX;
+            snakeLength.Add(new Snake { posX = snakeLast.posX + tailX, posY = snakeLast.posY + tailY });
             return snakeLength;
         }
 

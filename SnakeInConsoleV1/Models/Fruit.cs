@@ -33,7 +33,7 @@ namespace SnakeInConsoleV1.Models
         public List<Fruit> SpawnFruit()
         {
             var getSnake = new Snake();
-            var snake = getSnake.getSnakehead();
+            var snake = getSnake.GetSnake();
             var rand = new Random();
             while (true)
             {
