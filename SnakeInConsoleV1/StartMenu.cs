@@ -16,19 +16,23 @@ namespace SnakeInConsoleV1
             var playGame = new Game();
             var showHiScores = new HiScores();
             var getGameArt = new GameArt();
-            var selector = getGameArt.ShowStartMenu();
-            if (selector == 0)
+            var selector = 0;
+            while (true)
             {
-                playGame.PlayGame();
-            }
-            if (selector == 1)
-            {
-                var hiScores = showHiScores.ShowHiScores();
-                getGameArt.ShowHiscores(hiScores);
-            }
-            if (selector == 2)
-            {
-                
+                selector = getGameArt.ShowStartMenu(selector);
+                if (selector == 0)
+                {
+                    playGame.PlayGame();
+                }
+                if (selector == 1)
+                {
+                    var hiScores = showHiScores.ShowHiScores();
+                    getGameArt.ShowHiscores(hiScores);
+                }
+                if (selector == 2)
+                {
+                    break;
+                }
             }
         }
     }

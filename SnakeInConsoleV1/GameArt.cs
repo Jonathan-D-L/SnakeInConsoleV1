@@ -10,10 +10,9 @@ namespace SnakeInConsoleV1
 {
     internal class GameArt
     {
-        public int ShowStartMenu()
+        public int ShowStartMenu(int selector)
         {
             var startImg = new CanvasImage("images\\Start.png");
-            var selector = 0;
             while (true)
             {
                 Console.Clear();
@@ -21,39 +20,49 @@ namespace SnakeInConsoleV1
 
                 if (selector == 0)
                 {
-                    Console.SetCursorPosition(22, Console.CursorTop - 6);
+                    Console.SetCursorPosition(18, Console.CursorTop - 6);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]> PLAY[/]");
                 }
                 else
                 {
-                    Console.SetCursorPosition(24, Console.CursorTop - 6);
+                    Console.SetCursorPosition(20, Console.CursorTop - 6);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]PLAY[/]");
                 }
                 if (selector == 1)
                 {
-                    Console.SetCursorPosition(22, Console.CursorTop + 1);
+                    Console.SetCursorPosition(18, Console.CursorTop + 1);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]> HISCORES[/]");
                 }
                 else
                 {
-                    Console.SetCursorPosition(24, Console.CursorTop + 1);
+                    Console.SetCursorPosition(20, Console.CursorTop + 1);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]HISCORES[/]");
                 }
                 if (selector == 2)
                 {
-                    Console.SetCursorPosition(22, Console.CursorTop + 1);
+                    Console.SetCursorPosition(18, Console.CursorTop + 1);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]> QUIT[/]");
                 }
                 else
                 {
-                    Console.SetCursorPosition(24, Console.CursorTop + 1);
+                    Console.SetCursorPosition(20, Console.CursorTop + 1);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]QUIT[/]");
                 }
+                Console.SetCursorPosition(34, Console.CursorTop - 2);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] W [/]");
+                Console.SetCursorPosition(32, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] A [/]");
+                Console.SetCursorPosition(34, Console.CursorTop);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] S [/]");
+                Console.SetCursorPosition(36, Console.CursorTop);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] D [/]");
+                Console.SetCursorPosition(32, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)],_____,[/]");
                 System.Threading.Thread.Sleep(1000);
                 if (Console.KeyAvailable)
                 {
                     var input = Console.ReadKey().KeyChar;
-                    if (input == (char)13)
+                    if (input == ' ')
                     {
                         break;
                     }
@@ -67,7 +76,6 @@ namespace SnakeInConsoleV1
                     }
                 }
             }
-            Console.ReadKey(false);
             return selector;
         }
         public string ShowGameOven()
@@ -107,11 +115,26 @@ namespace SnakeInConsoleV1
         }
         public void ShowHiscores(List<string> hiScores)
         {
-            foreach(var hS in hiScores)
+            Console.Clear();
+            var sortedHiScores = hiScores.OrderByDescending(h => Convert.ToInt32(h.Split(' ')[1])).ToList();
+            var top10 = 0;
+            foreach (var sHS in sortedHiScores)
             {
-                Console.WriteLine(hS);
+                if (top10 < 1)
+                {
+                    Console.WriteLine(sHS);
+                    top10++;
+                }
+                else
+                {
+                    break;
+                }
             }
-            Console.ReadLine();
+            if (hiScores.Count == 0)
+            {
+                Console.WriteLine("NO SCORE");
+            }
+            Console.ReadKey();
         }
     }
 }
