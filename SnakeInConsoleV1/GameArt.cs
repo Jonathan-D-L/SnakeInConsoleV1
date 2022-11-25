@@ -58,8 +58,8 @@ namespace SnakeInConsoleV1
                 AnsiConsole.Markup($"[black on rgb(192,222,114)] D [/]");
                 Console.SetCursorPosition(32, Console.CursorTop + 1);
                 AnsiConsole.Markup($"[black on rgb(192,222,114)],_____,[/]");
-                System.Threading.Thread.Sleep(1000);
-                if (Console.KeyAvailable)
+                System.Threading.Thread.Sleep(100);
+                if (Console.KeyAvailable) 
                 {
                     var input = Console.ReadKey().KeyChar;
                     if (input == ' ')

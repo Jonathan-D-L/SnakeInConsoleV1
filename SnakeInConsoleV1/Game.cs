@@ -7,6 +7,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace SnakeInConsoleV1.Models
 {
@@ -30,24 +31,7 @@ namespace SnakeInConsoleV1.Models
             int index = 0;
             while (true)
             {
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    if (key.KeyChar == 'w' && action == 's' ||
-                        key.KeyChar == 's' && action == 'w' ||
-                        key.KeyChar == 'a' && action == 'd' ||
-                        key.KeyChar == 'd' && action == 'a' ||
-                        key.KeyChar == 'w' && action == 'w' ||
-                        key.KeyChar == 's' && action == 's' ||
-                        key.KeyChar == 'a' && action == 'a' ||
-                        key.KeyChar == 'd' && action == 'd')
-                    {
-                    }
-                    else
-                    {
-                        action = key.KeyChar;
-                    }
-                }
+
                 Console.Clear();
                 getSnake.MoveSnake(action);
                 if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
@@ -108,6 +92,39 @@ namespace SnakeInConsoleV1.Models
                     AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                 }
                 System.Threading.Thread.Sleep(250);
+                var keyList = new List<ConsoleKeyInfo>();
+                while (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true);
+                    keyList.Add(key);
+                    if (keyList.Count > 1)
+                    {
+                        keyList.RemoveAt(1);
+                    }
+                }
+                if (keyList.Count > 0)
+                {
+                    var singleKey = keyList.First();
+                    switch (singleKey.Key)
+                    {
+                        case ConsoleKey.W:
+                            if (action != 's')
+                                action = 'w';
+                            break;
+                        case ConsoleKey.S:
+                            if (action != 'w')
+                                action = 's';
+                            break;
+                        case ConsoleKey.A:
+                            if (action != 'd')
+                                action = 'a';
+                            break;
+                        case ConsoleKey.D:
+                            if (action != 'a')
+                                action = 'd';
+                            break;
+                    }
+                }
             }
             var playerName = getGameArt.ShowGameOven();
             saveScoreAndName.AddHiScore(playerName, score);
