@@ -111,8 +111,6 @@ namespace SnakeInConsoleV1.Models
             }
             var playerName = getGameArt.ShowGameOven();
             saveScoreAndName.AddHiScore(playerName, score);
-            var goToStart = new StartMenu();
-            goToStart.ShowStartMenu();
         }
 
     }
