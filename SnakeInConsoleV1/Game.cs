@@ -46,7 +46,7 @@ namespace SnakeInConsoleV1.Models
                     {
 
                     }
-                    else if (preventFastInput.Count <= 1) // breaks on not wasd
+                    else if (preventFastInput.Count <= 1)
                     {
                         preventFastInput.Add(key.KeyChar);
                     }
@@ -65,7 +65,7 @@ namespace SnakeInConsoleV1.Models
                     getSnake.MoveSnake(action);
                     if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
                     {
-                        getSnake.getSnakeTail();
+                        getSnake.GetSnakeTail();
                         fruit = getFruit.SpawnFruit();
                         score++;
                     }

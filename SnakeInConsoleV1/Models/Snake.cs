@@ -46,14 +46,39 @@ namespace SnakeInConsoleV1.Models
             }
             return snakeLength;
         }
-        public List<Snake> getSnakeTail()
+        public List<Snake> GetSnakeTail()
         {
-            var snake = snakeLength.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
-            var snakeLast = snake.Last();
-            var snakeNextLast = snake[snake.Count - 2];
-            var tailY = snakeLast.posY - snakeNextLast.posY;
-            var tailX = snakeLast.posX - snakeNextLast.posX;
-            snakeLength.Add(new Snake { posX = snakeLast.posX + tailX, posY = snakeLast.posY + tailY });
+            var last = snakeLength[^1];
+            var prior = snakeLength[^2];
+            var posY = 0;
+            var posX = 0;
+            if (prior.posY == last.posY)
+            {
+                if (prior.posX < last.posX)
+                {
+                    posY = last.posY;
+                    posX = last.posX + 1;
+                }
+                if (prior.posX > last.posX)
+                {
+                    posY = last.posY;
+                    posX = last.posX - 1;
+                }
+            }
+            if (prior.posX == last.posX)
+            {
+                if (prior.posY < last.posY)
+                {
+                    posY = last.posY + 1;
+                    posX = last.posX;
+                }
+                if (prior.posY > last.posY)
+                {
+                    posY = last.posY - 1;
+                    posX = last.posX;
+                }
+            }
+            snakeLength.Add(new Snake { posX = posX, posY = posY });
             return snakeLength;
         }
 
