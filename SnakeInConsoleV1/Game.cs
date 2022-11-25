@@ -110,7 +110,6 @@ namespace SnakeInConsoleV1.Models
                 System.Threading.Thread.Sleep(250);
             }
             var playerName = getGameArt.ShowGameOven();
-            saveScoreAndName.CheckHiscoresFile();
             saveScoreAndName.AddHiScore(playerName, score);
             var goToStart = new StartMenu();
             goToStart.ShowStartMenu();

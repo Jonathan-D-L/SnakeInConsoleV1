@@ -14,6 +14,7 @@ namespace SnakeInConsoleV1
             var scores = new List<string>();
             var directory = "Files";
             var fileName = "Hiscores.txt";
+            CheckHiscoresFile();
             foreach (var line in File.ReadLines($"{directory}\\{fileName}"))
             {
                 scores.Add(line);

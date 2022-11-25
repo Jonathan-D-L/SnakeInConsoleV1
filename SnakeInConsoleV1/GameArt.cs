@@ -106,7 +106,7 @@ namespace SnakeInConsoleV1
                     }
                     break;
                 }
-                else if (input != '[' && input != ']' && playerName.Length < 20 && input != (char)8)
+                else if (input != '[' && input != ']' && playerName.Length < 15 && input != (char)8)
                 {
                     playerName += input.ToString();
                 }
@@ -115,15 +115,26 @@ namespace SnakeInConsoleV1
         }
         public void ShowHiscores(List<string> hiScores)
         {
+            var scoreBoard = new CanvasImage("images\\ScoreBoard.png");
             Console.Clear();
+            AnsiConsole.Write(scoreBoard);
+            Console.SetCursorPosition(13, Console.CursorTop - 18);
+            AnsiConsole.Markup($"[black on rgb(192,222,114)]~~~~~~~~~~~ SCOREBOARD ~~~~~~~~~~~[/]");
             var sortedHiScores = hiScores.OrderByDescending(h => Convert.ToInt32(h.Split(' ')[1])).ToList();
             var top10 = 0;
+            Console.SetCursorPosition(13, Console.CursorTop + 1);
             foreach (var sHS in sortedHiScores)
             {
-                if (top10 < 1)
+
+                if (top10 < 10)
                 {
-                    Console.WriteLine(sHS);
+                    var name = sHS.Split(' ')[0];
+                    var score = sHS.Split(' ')[1];
                     top10++;
+                    Console.SetCursorPosition(13, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]{top10}. {name}[/]");
+                    Console.SetCursorPosition(33, Console.CursorTop);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]SCORE: {score}[/]");
                 }
                 else
                 {
@@ -132,7 +143,6 @@ namespace SnakeInConsoleV1
             }
             if (hiScores.Count == 0)
             {
-                Console.WriteLine("NO SCORE");
             }
             Console.ReadKey();
         }
