@@ -17,7 +17,7 @@ namespace SnakeInConsoleV1
             //Console.WriteLine(" sadasd");
             //Console.ReadKey();
             var getGameArt = new GameArt();
-            getGameArt.startMenuArt();
+            getGameArt.StartMenuArt();
             var playGame = new Game();
             playGame.PlayGame();
         }

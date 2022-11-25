@@ -19,20 +19,17 @@ namespace SnakeInConsoleV1.Models
             var getGameArt = new GameArt();
             var getScore = new SnakeScoreCounter();
 
-            bool readKey = false;
-            bool lost = false;
-
             var gridY = new int[26];
             var gridX = new int[28];
 
-            var action = '0';
-            var preventFastInput = new List<char>() { 'w' };
+            var action = 'w';
             var fruit = getFruit.SpawnFruit();
+            var snake = getSnake.GetSnake();
             var score = 0;
+            int index = 0;
             while (true)
             {
-                var snake = getSnake.GetSnake();
-                if (readKey == true)
+                if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     if (key.KeyChar == 'w' && action == 's' ||
@@ -44,91 +41,75 @@ namespace SnakeInConsoleV1.Models
                         key.KeyChar == 'a' && action == 'a' ||
                         key.KeyChar == 'd' && action == 'd')
                     {
-
                     }
-                    else if (preventFastInput.Count <= 1)
+                    else
                     {
-                        preventFastInput.Add(key.KeyChar);
+                        action = key.KeyChar;
                     }
-                    readKey = false;
                 }
-                int index = 0;
-                while (!Console.KeyAvailable)
+                Console.Clear();
+                getSnake.MoveSnake(action);
+                if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
                 {
-                    preventFastInput.Reverse();
-                    action = preventFastInput.First();
-                    if (preventFastInput.Count > 1)
+                    getSnake.GetSnakeTail();
+                    fruit = getFruit.SpawnFruit();
+                    score++;
+                }
+                var snakeColided = snake
+                    .GroupBy(i => new { i.posY, i.posX })
+                    .Where(g => g
+                    .Count() > 1)
+                    .Select(g => g.Key)
+                    .FirstOrDefault();
+                if (snake.Any(s => s.posX == -1 || s.posX == 28 || s.posY == -1 || s.posY == 26 || snakeColided != null))
+                {
+                    break;
+                }
+                var snakeOrdered = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
+                var scoreString = getScore.ScoreCounter(score);
+                AnsiConsole.Markup($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
+                Console.Write("\r\n");
+                for (int y = 0; y < gridY.Length; y++)
+                {
+                    AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
+                    for (int x = 0; x < gridX.Length; x++)
                     {
-                        preventFastInput.RemoveAt(1);
-                    }
-                    Console.Clear();
-                    getSnake.MoveSnake(action);
-                    if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
-                    {
-                        getSnake.GetSnakeTail();
-                        fruit = getFruit.SpawnFruit();
-                        score++;
-                    }
-                    var snakeColided = snake
-                        .GroupBy(i => new { i.posY, i.posX })
-                        .Where(g => g
-                        .Count() > 1)
-                        .Select(g => g.Key)
-                        .FirstOrDefault();
-                    if (snake.Any(s => s.posX == -1 || s.posX == 28 || s.posY == -1 || s.posY == 26 || snakeColided != null))
-                    {
-                        lost = true;
-                        break;
-                    }
-                    var snakeOrdered = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
-                    var scoreString = getScore.ScoreCounter(score);
-                    AnsiConsole.Markup($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
-                    Console.Write("\r\n");
-                    for (int y = 0; y < gridY.Length; y++)
-                    {
-                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
-                        for (int x = 0; x < gridX.Length; x++)
+                        var s = snakeOrdered[index];
+                        if (y == s.posY && x == s.posX)
                         {
-                            var s = snakeOrdered[index];
-                            if (y == s.posY && x == s.posX)
+                            if (index == snake.Count - 1)
                             {
-                                if (index == snake.Count - 1)
-                                {
-                                    index = 0;
-                                }
-                                else
-                                {
-                                    index++;
-                                }
-                                AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
+                                index = 0;
                             }
                             else
                             {
-                                if (y == fruit.First().posY && x == fruit.First().posX)
-                                {
-                                    AnsiConsole.Markup($"[on rgb(200,30,30)]  [/]");
-                                }
-                                else
-                                {
-                                    AnsiConsole.Markup($"[on rgb(192,222,114)]  [/]");
-                                }
+                                index++;
+                            }
+
+
+
+                            AnsiConsole.Markup($"[white on rgb(78,95,39)]  [/]");
+                        }
+                        else
+                        {
+                            if (y == fruit.First().posY && x == fruit.First().posX)
+                            {
+                                AnsiConsole.Markup($"[on rgb(200,30,30)]  [/]");
+                            }
+                            else
+                            {
+                                AnsiConsole.Markup($"[on rgb(192,222,114)]  [/]");
                             }
                         }
-                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
-                        Console.Write("\r\n");
                     }
-                    for (int x = 0; x <= gridX.Length + 1; x++)
-                    {
-                        AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
-                    }
-                    System.Threading.Thread.Sleep(250);
+                    AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
+                    Console.Write("\r\n");
                 }
-                readKey = true;
-                if (lost == true)
+                for (int x = 0; x <= gridX.Length + 1; x++)
                 {
-                    lost = false;
-                    break;
+                    AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                 }
+                System.Threading.Thread.Sleep(250);
             }
             //=> GameArtLost
             Console.WriteLine("game over");

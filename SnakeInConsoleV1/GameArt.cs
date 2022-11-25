@@ -10,7 +10,7 @@ namespace SnakeInConsoleV1
 {
     internal class GameArt
     {
-        public void startMenuArt()
+        public void StartMenuArt()
         {
             var startImg = new CanvasImage("images\\Start.png");
             while (!Console.KeyAvailable)
@@ -22,6 +22,10 @@ namespace SnakeInConsoleV1
                 System.Threading.Thread.Sleep(1000);
             }
             Console.ReadKey(false);
+        }
+        public void GameOverArt()
+        {
+
         }
     }
 }
