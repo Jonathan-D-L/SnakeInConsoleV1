@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,6 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="SnakeV1\Release\**" />
+    <EmbeddedResource Remove="SnakeV1\Release\**" />
+    <None Remove="SnakeV1\Release\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.45.0" />
@@ -25,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="bin\Debug\net6.0\" />
+    <Folder Include="SnakeV1\" />
   </ItemGroup>
 
 </Project>
