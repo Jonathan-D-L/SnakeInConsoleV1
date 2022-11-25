@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {
-    internal class SnakeHiScores
+    internal class HiScores
     {
         public List<string> ShowHiScores()
         {
@@ -27,8 +27,11 @@ namespace SnakeInConsoleV1
             var fileName = "Hiscores.txt";
             if (File.Exists($"{directory}\\{fileName}"))
             {
-                var playerNameAndScore = $"{playerName} {score}\r\n";
-                File.AppendAllText($"{directory}\\{fileName}", playerNameAndScore);
+                if (playerName != string.Empty)
+                {
+                    var playerNameAndScore = $"{playerName} {score}\r\n";
+                    File.AppendAllText($"{directory}\\{fileName}", playerNameAndScore);
+                }
             }
         }
         public void CheckHiscoresFile()

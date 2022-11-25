@@ -17,8 +17,8 @@ namespace SnakeInConsoleV1.Models
             var getSnake = new Snake();
             var getFruit = new Fruit();
             var getGameArt = new GameArt();
-            var getScore = new SnakeScoreCounter();
-            var saveScoreAndName = new SnakeHiScores();
+            var getScore = new ScoreCounter();
+            var saveScoreAndName = new HiScores();
 
             var gridY = new int[26];
             var gridX = new int[28];
@@ -67,7 +67,7 @@ namespace SnakeInConsoleV1.Models
                     break;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
-                var scoreString = getScore.ScoreCounter(score);
+                var scoreString = getScore.GetScore(score);
                 AnsiConsole.Markup($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
                 Console.Write("\r\n");
                 for (int y = 0; y < gridY.Length; y++)
@@ -109,7 +109,7 @@ namespace SnakeInConsoleV1.Models
                 }
                 System.Threading.Thread.Sleep(250);
             }
-            var playerName = getGameArt.GameOverArt();
+            var playerName = getGameArt.ShowGameOven();
             saveScoreAndName.CheckHiscoresFile();
             saveScoreAndName.AddHiScore(playerName, score);
             var goToStart = new StartMenu();

@@ -1,4 +1,5 @@
 ﻿using SnakeInConsoleV1.Models;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,24 @@ namespace SnakeInConsoleV1
     {
         public void ShowStartMenu()
         {
-            //Console.BackgroundColor = ConsoleColor.Green;
-            //Console.WriteLine(" sadasd");
-            //Console.BackgroundColor = ConsoleColor.DarkGreen;
-            //Console.WriteLine(" sadasd");
-            //Console.ReadKey();
-            var getGameArt = new GameArt();
-            getGameArt.StartMenuArt();
+
             var playGame = new Game();
-            playGame.PlayGame();
+            var showHiScores = new HiScores();
+            var getGameArt = new GameArt();
+            var selector = getGameArt.ShowStartMenu();
+            if (selector == 0)
+            {
+                playGame.PlayGame();
+            }
+            if (selector == 1)
+            {
+                var hiScores = showHiScores.ShowHiScores();
+                getGameArt.ShowHiscores(hiScores);
+            }
+            if (selector == 2)
+            {
+                
+            }
         }
     }
 }

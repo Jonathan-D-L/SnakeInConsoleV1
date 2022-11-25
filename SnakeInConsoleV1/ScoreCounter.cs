@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {
-    internal class SnakeScoreCounter
+    internal class ScoreCounter
     {
-        public string ScoreCounter(int score)
+        public string GetScore(int score)
         {
 
             var s = score.ToString();

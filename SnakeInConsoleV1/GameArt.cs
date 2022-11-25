@@ -10,20 +10,67 @@ namespace SnakeInConsoleV1
 {
     internal class GameArt
     {
-        public void StartMenuArt()
+        public int ShowStartMenu()
         {
             var startImg = new CanvasImage("images\\Start.png");
-            while (!Console.KeyAvailable)
+            var selector = 0;
+            while (true)
             {
                 Console.Clear();
                 AnsiConsole.Write(startImg);
-                Console.SetCursorPosition(18, Console.CursorTop - 6);
-                AnsiConsole.Markup($"[black on rgb(192,222,114)]PRESS ANY KEY TO START![/]");
+
+                if (selector == 0)
+                {
+                    Console.SetCursorPosition(22, Console.CursorTop - 6);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> PLAY[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(24, Console.CursorTop - 6);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]PLAY[/]");
+                }
+                if (selector == 1)
+                {
+                    Console.SetCursorPosition(22, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> HISCORES[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(24, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]HISCORES[/]");
+                }
+                if (selector == 2)
+                {
+                    Console.SetCursorPosition(22, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> QUIT[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(24, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]QUIT[/]");
+                }
                 System.Threading.Thread.Sleep(1000);
+                if (Console.KeyAvailable)
+                {
+                    var input = Console.ReadKey().KeyChar;
+                    if (input == (char)13)
+                    {
+                        break;
+                    }
+                    if (input == 'w' && selector != 0)
+                    {
+                        selector--;
+                    }
+                    if (input == 's' && selector != 2)
+                    {
+                        selector++;
+                    }
+                }
             }
             Console.ReadKey(false);
+            return selector;
         }
-        public string GameOverArt()
+        public string ShowGameOven()
         {
             var startImg = new CanvasImage("images\\GameOver.png");
             var playerName = string.Empty;
@@ -44,14 +91,27 @@ namespace SnakeInConsoleV1
                 }
                 if (input == (char)13)
                 {
+                    var space = ' ';
+                    if (playerName.All(x => x == space))
+                    {
+                        playerName = string.Empty;
+                    }
                     break;
                 }
-                if (input != '[' && input != ']' && playerName.Length < 20 && input != (char)8)
+                else if (input != '[' && input != ']' && playerName.Length < 20 && input != (char)8)
                 {
                     playerName += input.ToString();
                 }
             }
             return playerName;
+        }
+        public void ShowHiscores(List<string> hiScores)
+        {
+            foreach(var hS in hiScores)
+            {
+                Console.WriteLine(hS);
+            }
+            Console.ReadLine();
         }
     }
 }
