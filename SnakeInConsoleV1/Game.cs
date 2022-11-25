@@ -18,6 +18,7 @@ namespace SnakeInConsoleV1.Models
             var getFruit = new Fruit();
             var getGameArt = new GameArt();
             var getScore = new SnakeScoreCounter();
+            var saveScoreAndName = new SnakeHiScores();
 
             var gridY = new int[26];
             var gridX = new int[28];
@@ -108,8 +109,9 @@ namespace SnakeInConsoleV1.Models
                 }
                 System.Threading.Thread.Sleep(250);
             }
-            getGameArt.GameOverArt();
-            
+            var playerName = getGameArt.GameOverArt();
+            saveScoreAndName.CheckHiscoresFile();
+            saveScoreAndName.AddHiScore(playerName, score);
             var goToStart = new StartMenu();
             goToStart.ShowStartMenu();
         }
