@@ -125,7 +125,6 @@ namespace SnakeInConsoleV1
             Console.SetCursorPosition(13, Console.CursorTop + 1);
             foreach (var sHS in sortedHiScores)
             {
-
                 if (top10 < 10)
                 {
                     var name = sHS.Split(' ')[0];
