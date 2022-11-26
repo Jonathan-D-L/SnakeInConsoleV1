@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
@@ -78,7 +79,7 @@ namespace SnakeInConsoleV1
             }
             return selector;
         }
-        public string ShowGameOven()
+        public string ShowGameOver()
         {
             var startImg = new CanvasImage("images\\GameOver.png");
             var playerName = string.Empty;
@@ -106,7 +107,7 @@ namespace SnakeInConsoleV1
                     }
                     break;
                 }
-                else if (input != '[' && input != ']' && playerName.Length < 15 && input != (char)8)
+                else if ((char.IsLetter(input) || char.IsDigit(input) || char.IsWhiteSpace(input)) && playerName.Length < 15 && input != (char)8)
                 {
                     playerName += input.ToString();
                 }
@@ -120,15 +121,15 @@ namespace SnakeInConsoleV1
             AnsiConsole.Write(scoreBoard);
             Console.SetCursorPosition(13, Console.CursorTop - 18);
             AnsiConsole.Markup($"[black on rgb(192,222,114)]~~~~~~~~~~~ SCOREBOARD ~~~~~~~~~~~[/]");
-            var sortedHiScores = hiScores.OrderByDescending(h => Convert.ToInt32(h.Split(' ')[1])).ToList();
+            var sortedHiScores = hiScores.OrderByDescending(h => Convert.ToInt32(h.Split('|')[1])).ToList();
             var top10 = 0;
             Console.SetCursorPosition(13, Console.CursorTop + 1);
             foreach (var sHS in sortedHiScores)
             {
                 if (top10 < 10)
                 {
-                    var name = sHS.Split(' ')[0];
-                    var score = sHS.Split(' ')[1];
+                    var name = sHS.Split('|')[0];
+                    var score = sHS.Split('|')[1];
                     top10++;
                     Console.SetCursorPosition(13, Console.CursorTop + 1);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]{top10}. {name}[/]");

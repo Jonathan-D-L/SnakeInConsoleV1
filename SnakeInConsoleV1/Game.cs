@@ -126,7 +126,7 @@ namespace SnakeInConsoleV1.Models
                     }
                 }
             }
-            var playerName = getGameArt.ShowGameOven();
+            var playerName = getGameArt.ShowGameOver();
             saveScoreAndName.AddHiScore(playerName, score);
         }
 

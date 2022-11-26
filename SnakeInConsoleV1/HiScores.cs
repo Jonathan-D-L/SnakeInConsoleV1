@@ -30,7 +30,7 @@ namespace SnakeInConsoleV1
             {
                 if (playerName != string.Empty)
                 {
-                    var playerNameAndScore = $"{playerName} {score}\r\n";
+                    var playerNameAndScore = $"{playerName}|{score}\r\n";
                     File.AppendAllText($"{directory}\\{fileName}", playerNameAndScore);
                 }
             }
