@@ -5,12 +5,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>snake.ico</ApplicationIcon>
+    <ApplicationIcon>images\snake.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="snake.ico" />
+    <Content Include="images\snake.ico" />
   </ItemGroup>
 
   <ItemGroup>
