@@ -33,21 +33,18 @@ namespace SnakeInConsoleV1.Models
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
             var getSnake = new Snake();
-            var rand = new Random();
-            
+
             bool fruitPosNotWhereSnakeIs = false;
             while (true)
             {
+                var rand = new Random();
                 var randX = rand.Next(0, 28);
                 var randY = rand.Next(0, 26);
                 foreach (var s in snake)
                 {
-                    if (s.posY != randY)
+                    if (s.posY != randY && s.posX != randX)
                     {
-                        if (s.posX != randX)
-                        {
-                            fruitPosNotWhereSnakeIs = true;
-                        }
+                        fruitPosNotWhereSnakeIs = true;
                     }
                 }
                 if (fruitPosNotWhereSnakeIs == true)

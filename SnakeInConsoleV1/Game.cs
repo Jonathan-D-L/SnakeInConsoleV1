@@ -23,7 +23,7 @@ namespace SnakeInConsoleV1.Models
 
             var gridY = new int[26];
             var gridX = new int[28];
-            var render = new List<string>();
+            var renderData = new List<string>();
             var action = 'w';
             var snake = getSnake.GetSnake();
             var fruit = getFruit.SpawnFruit(snake);
@@ -52,11 +52,11 @@ namespace SnakeInConsoleV1.Models
                 }
                 var snakeOrdered = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
                 var scoreString = getScore.GetScore(score);
-                render.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
-                render.Add("\r\n");
+                renderData.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
+                renderData.Add("\r\n");
                 for (int y = 0; y < gridY.Length; y++)
                 {
-                    render.Add($"[on rgb(78,95,39)]  [/]");
+                    renderData.Add($"[on rgb(78,95,39)]  [/]");
                     for (int x = 0; x < gridX.Length; x++)
                     {
                         var s = snakeOrdered[index];
@@ -70,32 +70,34 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-                            render.Add($"[white on rgb(78,95,39)]  [/]");
+                            renderData.Add($"[white on rgb(78,95,39)]  [/]");
                         }
                         else
                         {
                             if (y == fruit.First().posY && x == fruit.First().posX)
                             {
-                                render.Add($"[on rgb(200,30,30)]  [/]");
+                                renderData.Add($"[on rgb(200,30,30)]  [/]");
                             }
                             else
                             {
-                                render.Add($"[on rgb(192,222,114)]  [/]");
+                                renderData.Add($"[on rgb(192,222,114)]  [/]");
                             }
                         }
                     }
-                    render.Add($"[on rgb(78,95,39)]  [/]");
-                    render.Add("\r\n");
+                    renderData.Add($"[on rgb(78,95,39)]  [/]");
+                    renderData.Add("\r\n");
                 }
                 for (int x = 0; x <= gridX.Length + 1; x++)
                 {
-                    render.Add($"[on rgb(78,95,39)]  [/]");
+                    renderData.Add($"[on rgb(78,95,39)]  [/]");
                 }
-                for (int y = 0; y < render.Count; ++y)
+                string render = "";
+                for (int y = 0; y < renderData.Count; ++y)
                 {
-                    AnsiConsole.Markup(render[y]);
+                    render += (renderData[y]);
                 }
-                render.Clear();
+                AnsiConsole.Markup(render);
+                renderData.Clear();
                 if (difficulty == 0)
                     System.Threading.Thread.Sleep(250);
                 else if (difficulty == 1)
