@@ -79,6 +79,84 @@ namespace SnakeInConsoleV1
             }
             return selector;
         }
+        public int ShowSubMenuDifficulty(int selector)
+        {
+            var startImg = new CanvasImage("images\\Start.png");
+            while (true)
+            {
+                Console.Clear();
+                AnsiConsole.Write(startImg);
+
+                if (selector == 0)
+                {
+                    Console.SetCursorPosition(18, Console.CursorTop - 6);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> EASY[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, Console.CursorTop - 6);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]EASY[/]");
+                }
+                if (selector == 1)
+                {
+                    Console.SetCursorPosition(18, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> NORMAL[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]NORMAL[/]");
+                }
+                if (selector == 2)
+                {
+                    Console.SetCursorPosition(18, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> HARD[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]HARD[/]");
+                }
+                if (selector == 3)
+                {
+                    Console.SetCursorPosition(18, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> BACK[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]BACK[/]");
+                }
+                Console.SetCursorPosition(34, Console.CursorTop - 3);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] W [/]");
+                Console.SetCursorPosition(32, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] A [/]");
+                Console.SetCursorPosition(34, Console.CursorTop);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] S [/]");
+                Console.SetCursorPosition(36, Console.CursorTop);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)] D [/]");
+                Console.SetCursorPosition(32, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)],_____,[/]");
+                System.Threading.Thread.Sleep(250);
+                if (Console.KeyAvailable)
+                {
+                    var input = Console.ReadKey().KeyChar;
+                    if (input == ' ')
+                    {
+                        break;
+                    }
+                    if (input == 'w' && selector != 0)
+                    {
+                        selector--;
+                    }
+                    if (input == 's' && selector != 3)
+                    {
+                        selector++;
+                    }
+                }
+            }
+            return selector;
+        }
         public string ShowGameOver()
         {
             var startImg = new CanvasImage("images\\GameOver.png");

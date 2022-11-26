@@ -13,7 +13,7 @@ namespace SnakeInConsoleV1.Models
 {
     internal class Game
     {
-        public void PlayGame()
+        public void PlayGame(int difficulty)
         {
             var getSnake = new Snake();
             var getFruit = new Fruit();
@@ -91,7 +91,12 @@ namespace SnakeInConsoleV1.Models
                 {
                     AnsiConsole.Markup($"[on rgb(78,95,39)]  [/]");
                 }
-                System.Threading.Thread.Sleep(250);
+                if (difficulty == 0)
+                    System.Threading.Thread.Sleep(250);
+                else if (difficulty == 1)
+                    System.Threading.Thread.Sleep(150);
+                else if (difficulty == 2)
+                    System.Threading.Thread.Sleep(75);
                 var keyList = new List<ConsoleKeyInfo>();
                 while (Console.KeyAvailable)
                 {
@@ -127,7 +132,7 @@ namespace SnakeInConsoleV1.Models
                 }
             }
             var playerName = getGameArt.ShowGameOver();
-            saveScoreAndName.AddHiScore(playerName, score);
+            saveScoreAndName.AddHiScore(playerName, score, difficulty);
         }
 
     }

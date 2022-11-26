@@ -17,12 +17,17 @@ namespace SnakeInConsoleV1
             var showHiScores = new HiScores();
             var getGameArt = new GameArt();
             var selector = 0;
+            var difficulty = 0;
             while (true)
             {
                 selector = getGameArt.ShowStartMenu(selector);
                 if (selector == 0)
                 {
-                    playGame.PlayGame();
+                    difficulty = getGameArt.ShowSubMenuDifficulty(difficulty);
+                    if (difficulty != 3)
+                    {
+                        playGame.PlayGame(difficulty);
+                    }
                 }
                 if (selector == 1)
                 {
