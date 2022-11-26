@@ -25,8 +25,8 @@ namespace SnakeInConsoleV1.Models
             var gridX = new int[28];
 
             var action = 'w';
-            var fruit = getFruit.SpawnFruit();
             var snake = getSnake.GetSnake();
+            var fruit = getFruit.SpawnFruit(snake);
             var score = 0;
             int index = 0;
             while (true)
@@ -37,7 +37,7 @@ namespace SnakeInConsoleV1.Models
                 if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
                 {
                     getSnake.GetSnakeTail();
-                    fruit = getFruit.SpawnFruit();
+                    fruit = getFruit.SpawnFruit(snake);
                     score++;
                 }
                 var snakeColided = snake

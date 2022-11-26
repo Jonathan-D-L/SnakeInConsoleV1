@@ -30,26 +30,34 @@ namespace SnakeInConsoleV1.Models
             get { return _posX; }
             set { _posX = value; }
         }
-        public List<Fruit> SpawnFruit()
+        public List<Fruit> SpawnFruit(List<Snake> snake)
         {
             var getSnake = new Snake();
-            var snake = getSnake.GetSnake();
             var rand = new Random();
+            
+            bool fruitPosNotWhereSnakeIs = false;
             while (true)
             {
                 var randX = rand.Next(0, 28);
                 var randY = rand.Next(0, 26);
-                if (snake.Any(s => s.posX == randX) && snake.Any(s => s.posY != randY))
+                foreach (var s in snake)
                 {
-
+                    if (s.posY != randY)
+                    {
+                        if (s.posX != randX)
+                        {
+                            fruitPosNotWhereSnakeIs = true;
+                        }
+                    }
                 }
-                else
+                if (fruitPosNotWhereSnakeIs == true)
                 {
                     fruit.Add(new Fruit { posX = randX, posY = randY });
                     if (fruit.Count > 1)
                     {
                         fruit.RemoveAt(0);
                     }
+                    fruitPosNotWhereSnakeIs = false;
                     break;
                 }
             }
