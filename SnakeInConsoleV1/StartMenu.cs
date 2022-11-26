@@ -28,6 +28,10 @@ namespace SnakeInConsoleV1
                     {
                         playGame.PlayGame(difficulty);
                     }
+                    if (difficulty == 3)
+                    {
+                        difficulty = 0;
+                    }
                 }
                 if (selector == 1)
                 {

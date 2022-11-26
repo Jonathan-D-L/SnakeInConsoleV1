@@ -31,7 +31,35 @@ namespace SnakeInConsoleV1.Models
             int index = 0;
             while (true)
             {
-
+                var keyList = new List<ConsoleKeyInfo>();
+                while (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true);
+                    keyList.Add(key);
+                }
+                if (keyList.Count > 0)
+                {
+                    var singleKey = keyList.First();
+                    switch (singleKey.Key)
+                    {
+                        case ConsoleKey.W:
+                            if (action != 's')
+                                action = 'w';
+                            break;
+                        case ConsoleKey.S:
+                            if (action != 'w')
+                                action = 's';
+                            break;
+                        case ConsoleKey.A:
+                            if (action != 'd')
+                                action = 'a';
+                            break;
+                        case ConsoleKey.D:
+                            if (action != 'a')
+                                action = 'd';
+                            break;
+                    }
+                }
                 Console.Clear();
                 getSnake.MoveSnake(action);
                 if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
@@ -104,39 +132,6 @@ namespace SnakeInConsoleV1.Models
                     System.Threading.Thread.Sleep(150);
                 else if (difficulty == 2)
                     System.Threading.Thread.Sleep(75);
-                var keyList = new List<ConsoleKeyInfo>();
-                while (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey(true);
-                    keyList.Add(key);
-                    if (keyList.Count > 1)
-                    {
-                        keyList.RemoveAt(1);
-                    }
-                }
-                if (keyList.Count > 0)
-                {
-                    var singleKey = keyList.First();
-                    switch (singleKey.Key)
-                    {
-                        case ConsoleKey.W:
-                            if (action != 's')
-                                action = 'w';
-                            break;
-                        case ConsoleKey.S:
-                            if (action != 'w')
-                                action = 's';
-                            break;
-                        case ConsoleKey.A:
-                            if (action != 'd')
-                                action = 'a';
-                            break;
-                        case ConsoleKey.D:
-                            if (action != 'a')
-                                action = 'd';
-                            break;
-                    }
-                }
             }
             var playerName = getGameArt.ShowGameOver();
             saveScoreAndName.AddHiScore(playerName, score, difficulty);
