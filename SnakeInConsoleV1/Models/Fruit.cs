@@ -37,9 +37,13 @@ namespace SnakeInConsoleV1.Models
             var rand = new Random();
             while (true)
             {
-                var randX = posX = rand.Next(0, 28);
-                var randY = posY = rand.Next(0, 26);
-                if (snake.All(s => s.posX != randX) && snake.All(s => s.posY != randY))
+                var randX = rand.Next(0, 28);
+                var randY = rand.Next(0, 26);
+                if (snake.Any(s => s.posX == randX) && snake.Any(s => s.posY != randY))
+                {
+
+                }
+                else
                 {
                     fruit.Add(new Fruit { posX = randX, posY = randY });
                     if (fruit.Count > 1)
