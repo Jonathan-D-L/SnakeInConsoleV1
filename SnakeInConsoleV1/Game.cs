@@ -46,19 +46,23 @@ namespace SnakeInConsoleV1.Models
                     var singleKey = keyList.First();
                     switch (singleKey.Key)
                     {
-                        case ConsoleKey.W: case ConsoleKey.UpArrow:
+                        case ConsoleKey.W:
+                        case ConsoleKey.UpArrow:
                             if (action != 's')
                                 action = 'w';
                             break;
-                        case ConsoleKey.S: case ConsoleKey.DownArrow:
+                        case ConsoleKey.S:
+                        case ConsoleKey.DownArrow:
                             if (action != 'w')
                                 action = 's';
                             break;
-                        case ConsoleKey.A: case ConsoleKey.LeftArrow:
+                        case ConsoleKey.A:
+                        case ConsoleKey.LeftArrow:
                             if (action != 'd')
                                 action = 'a';
                             break;
-                        case ConsoleKey.D: case ConsoleKey.RightArrow:
+                        case ConsoleKey.D:
+                        case ConsoleKey.RightArrow:
                             if (action != 'a')
                                 action = 'd';
                             break;
@@ -66,21 +70,16 @@ namespace SnakeInConsoleV1.Models
                 }
                 Console.Clear();
                 getSnake.MoveSnake(action);
+                var snakeColided = snake.GroupBy(i => new { i.PosY, i.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
+                if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
+                {
+                    break;
+                }
                 if (snake.First().PosX == fruit.First().PosX && snake.First().PosY == fruit.First().PosY)
                 {
                     getSnake.GetSnakeTail();
                     fruit = getFruit.SpawnFruit(snake);
                     score++;
-                }
-                var snakeColided = snake
-                    .GroupBy(i => new { i.PosY, i.PosX })
-                    .Where(g => g
-                    .Count() > 1)
-                    .Select(g => g.Key)
-                    .FirstOrDefault();
-                if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26 || snakeColided != null))
-                {
-                    break;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = getScore.GetScore(score, difficulty);
