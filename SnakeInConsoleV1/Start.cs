@@ -19,7 +19,7 @@ namespace SnakeInConsoleV1.Models
             Console.CursorVisible = false;
             var checkForHiScoreFile = new HiScores();
             checkForHiScoreFile.CheckForHiScoresFile();
-            var showStartMenu = new StartMenu();
+            var showStartMenu = new MainMenu();
             showStartMenu.ShowStartMenu();
         }
         private const int MF_BYCOMMAND = 0x00000000;

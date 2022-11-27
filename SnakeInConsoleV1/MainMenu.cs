@@ -1,4 +1,5 @@
-﻿using SnakeInConsoleV1.Models;
+﻿using SnakeInConsoleV1.GameMenus;
+using SnakeInConsoleV1.Models;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -8,22 +9,24 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {
-    internal class StartMenu
+    internal class MainMenu
     {
         public void ShowStartMenu()
         {
 
             var playGame = new Game();
             var showHiScores = new HiScores();
-            var getGameArt = new GameArt();
+            var getStartMenu = new StartMenu();
+            var getSubMenuDifficulty = new SubMenuDifficulty();
+            var getHiScoresMenu = new HiscoresMenu();
             var selector = 0;
             var difficulty = 0;
             while (true)
             {
-                selector = getGameArt.ShowStartMenu(selector);
+                selector = getStartMenu.ShowStartMenu(selector);
                 if (selector == 0)
                 {
-                    difficulty = getGameArt.ShowSubMenuDifficulty(difficulty);
+                    difficulty = getSubMenuDifficulty.ShowSubMenuDifficulty(difficulty);
                     if (difficulty != 3)
                     {
                         playGame.PlayGame(difficulty);
@@ -36,7 +39,7 @@ namespace SnakeInConsoleV1
                 if (selector == 1)
                 {
                     var hiScores = showHiScores.GetHiScoresFromFile();
-                    getGameArt.ShowHiscores(hiScores);
+                    getHiScoresMenu.ShowHiscoresMenu(hiScores);
                 }
                 if (selector == 2)
                 {

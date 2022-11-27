@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using SnakeInConsoleV1.GameMenus;
+using Spectre.Console;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace SnakeInConsoleV1.Models
         {
             var getSnake = new Snake();
             var getFruit = new Fruit();
-            var getGameArt = new GameArt();
+            var getGameOverMenu = new GameOverMenu();
+            var getSubMenuPlayAgain = new SubMenuPlayAgain();
             var getScore = new ScoreCounter();
             var getScoreString = new RenderScore();
             var saveScoreAndName = new HiScores();
@@ -136,9 +138,9 @@ namespace SnakeInConsoleV1.Models
                 else if (difficulty == 2)
                     System.Threading.Thread.Sleep(75);
             }
-            var playerName = getGameArt.ShowGameOver(fruitAndScore);
+            var playerName = getGameOverMenu.ShowGameOverMenu(fruitAndScore);
             saveScoreAndName.AddHiScore(playerName, fruitAndScore);
-            var playAgain = getGameArt.ShowSubMenuPlayAgain(fruitAndScore);
+            var playAgain = getSubMenuPlayAgain.ShowSubMenuPlayAgain(fruitAndScore);
             if (playAgain == 1)
             {
                 PlayGame(difficulty);
