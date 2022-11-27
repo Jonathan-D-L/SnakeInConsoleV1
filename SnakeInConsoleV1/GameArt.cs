@@ -160,7 +160,7 @@ namespace SnakeInConsoleV1
         }
         public string ShowGameOver(int[] fruitAndScore)
         {
-            var startImg = new CanvasImage("images\\GameOver.png");
+            var gameOverImg = new CanvasImage("images\\GameOver.png");
             var playerName = string.Empty;
             var getHiScores = new HiScores();
             var hiScores = getHiScores.GetHiScoresFromFile();
@@ -178,7 +178,7 @@ namespace SnakeInConsoleV1
                 while (true)
                 {
                     Console.Clear();
-                    AnsiConsole.Write(startImg);
+                    AnsiConsole.Write(gameOverImg);
                     Console.SetCursorPosition(16, Console.CursorTop - 7);
                     AnsiConsole.Markup($"[black on rgb(192,222,114)]FRUITS: {fruitAndScore[0]}{fruitSpace}SCORE: {fruitAndScore[1]}[/]");
                     Console.SetCursorPosition(16, Console.CursorTop + 2);
@@ -207,22 +207,13 @@ namespace SnakeInConsoleV1
                     }
                 }
             }
-            else
-            {
-                Console.Clear();
-                AnsiConsole.Write(startImg);
-                Console.SetCursorPosition(16, Console.CursorTop - 7);
-                AnsiConsole.Markup($"[black on rgb(192,222,114)]FRUITS: {fruitAndScore[0]}{fruitSpace}SCORE: {fruitAndScore[1]}[/]");
-                Console.ReadKey();
-            }
             return playerName;
-
         }
         public void ShowHiscores(List<playerScore> hiScores)
         {
-            var scoreBoard = new CanvasImage("images\\ScoreBoard.png");
+            var scoreBoardImg = new CanvasImage("images\\ScoreBoard.png");
             Console.Clear();
-            AnsiConsole.Write(scoreBoard);
+            AnsiConsole.Write(scoreBoardImg);
             Console.SetCursorPosition(13, Console.CursorTop - 18);
             AnsiConsole.Markup($"[black on rgb(192,222,114)]~~~~~~~~~~~ SCOREBOARD ~~~~~~~~~~~[/]");
             Console.SetCursorPosition(15, Console.CursorTop + 2);
@@ -238,6 +229,67 @@ namespace SnakeInConsoleV1
                 AnsiConsole.Markup($"[black on rgb(192,222,114)]{h.Score}[/]");
             }
             Console.ReadKey();
+        }
+        public int ShowSubMenuPlayAgain(int[] fruitAndScore)
+        {
+            var gameOverImg = new CanvasImage("images\\GameOver.png");
+            int selector = 1;
+            var getHiScores = new HiScores();
+            var hiScores = getHiScores.GetHiScoresFromFile();
+            var fruit = fruitAndScore[0];
+            var a = fruit.ToString();
+            var spacesNeded = 10 - a.Length;
+            var fruitSpace = "";
+            for (int i = 0; i < spacesNeded; i++)
+            {
+                fruitSpace += " ";
+            }
+            while (true)
+            {
+                Console.Clear();
+                AnsiConsole.Write(gameOverImg);
+                Console.SetCursorPosition(16, Console.CursorTop - 7);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]FRUITS: {fruitAndScore[0]}{fruitSpace}SCORE: {fruitAndScore[1]}[/]");
+                Console.SetCursorPosition(16, Console.CursorTop + 2);
+                if (selector == 1)
+                {
+                    Console.SetCursorPosition(22, Console.CursorTop);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> PLAY AGAIN[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(24, Console.CursorTop);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]PLAY AGAIN[/]");
+                }
+                if (selector == 0)
+                {
+                    Console.SetCursorPosition(22, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]> MAIN MENU[/]");
+                }
+                else
+                {
+                    Console.SetCursorPosition(24, Console.CursorTop + 1);
+                    AnsiConsole.Markup($"[black on rgb(192,222,114)]MAIN MENU[/]");
+                }
+                System.Threading.Thread.Sleep(250);
+                if (Console.KeyAvailable)
+                {
+                    var input = Console.ReadKey().KeyChar;
+                    if (input == ' ')
+                    {
+                        break;
+                    }
+                    if (input == 'w' && selector != 1)
+                    {
+                        selector++;
+                    }
+                    if (input == 's' && selector != 0)
+                    {
+                        selector--;
+                    }
+                }
+            }
+            return selector;
         }
     }
 }

@@ -138,7 +138,15 @@ namespace SnakeInConsoleV1.Models
             }
             var playerName = getGameArt.ShowGameOver(fruitAndScore);
             saveScoreAndName.AddHiScore(playerName, fruitAndScore);
-        }
+            var playAgain = getGameArt.ShowSubMenuPlayAgain(fruitAndScore);
+            if (playAgain == 1)
+            {
+                PlayGame(difficulty);
+            }
+            if (playAgain == 0)
+            {
 
+            }
+        }
     }
 }
