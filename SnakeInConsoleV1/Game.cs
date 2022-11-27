@@ -46,19 +46,19 @@ namespace SnakeInConsoleV1.Models
                     var singleKey = keyList.First();
                     switch (singleKey.Key)
                     {
-                        case ConsoleKey.W:
+                        case ConsoleKey.W: case ConsoleKey.UpArrow:
                             if (action != 's')
                                 action = 'w';
                             break;
-                        case ConsoleKey.S:
+                        case ConsoleKey.S: case ConsoleKey.DownArrow:
                             if (action != 'w')
                                 action = 's';
                             break;
-                        case ConsoleKey.A:
+                        case ConsoleKey.A: case ConsoleKey.LeftArrow:
                             if (action != 'd')
                                 action = 'a';
                             break;
-                        case ConsoleKey.D:
+                        case ConsoleKey.D: case ConsoleKey.RightArrow:
                             if (action != 'a')
                                 action = 'd';
                             break;
