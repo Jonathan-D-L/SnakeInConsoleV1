@@ -167,7 +167,7 @@ namespace SnakeInConsoleV1
                 Console.Clear();
                 AnsiConsole.Write(startImg);
                 Console.SetCursorPosition(18, Console.CursorTop - 6);
-                AnsiConsole.Markup($"[black on rgb(192,222,114)]ENTER NAME: {playerName.ToUpper()}[/]");
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]ENTER NAME: {playerName}[/]");
                 var input = Console.ReadKey().KeyChar;
                 if (input == (char)8)
                 {
@@ -200,15 +200,17 @@ namespace SnakeInConsoleV1
             AnsiConsole.Write(scoreBoard);
             Console.SetCursorPosition(13, Console.CursorTop - 18);
             AnsiConsole.Markup($"[black on rgb(192,222,114)]~~~~~~~~~~~ SCOREBOARD ~~~~~~~~~~~[/]");
-            var top10 = 1;
-            Console.SetCursorPosition(13, Console.CursorTop + 1);
+            Console.SetCursorPosition(15, Console.CursorTop + 2);
+            AnsiConsole.Markup($"[black on rgb(192,222,114)]NAME[/]");
+            Console.SetCursorPosition(33, Console.CursorTop);
+            AnsiConsole.Markup($"[black on rgb(192,222,114)]SCORE[/]");
+            Console.SetCursorPosition(0, Console.CursorTop);
             foreach (var h in hiScores)
             {
-                Console.SetCursorPosition(13, Console.CursorTop + 1);
-                AnsiConsole.Markup($"[black on rgb(192,222,114)]{top10}. {h.Name}[/]");
+                Console.SetCursorPosition(15, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]{h.Name}[/]");
                 Console.SetCursorPosition(33, Console.CursorTop);
-                AnsiConsole.Markup($"[black on rgb(192,222,114)]SCORE: {h.Score}[/]");
-                top10++;
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]{h.Score}[/]");
             }
             Console.ReadKey();
         }

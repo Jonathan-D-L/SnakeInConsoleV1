@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnakeInConsoleV1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,38 @@ namespace SnakeInConsoleV1
 {
     internal class ScoreCounter
     {
-        public string GetScore(int score)
+        public Array GetScore(int score, int difficulty)
         {
-
+            var apples = score;
+            if (difficulty == 0)
+            {
+                score *= 1;
+            }
+            if (difficulty == 1)
+            {
+                score *= 2;
+            }
+            if (difficulty == 2)
+            {
+                score *= 4;
+            }
+            var applesAndScore = new int[] { apples, score };
+            var a = apples.ToString();
             var s = score.ToString();
-            var spacesNeded = 49 - s.Length;
+            var spacesNededFirst = 23 - a.Length;
+            var spacesNededLast = 12 - s.Length;
+            var appleSpace = "";
             var scoreSpace = "";
-            for (int i = 0; i < spacesNeded; i++)
+            for (int i = 0; i < spacesNededFirst; i++)
+            {
+                appleSpace += " ";
+            }
+            for (int i = 0; i < spacesNededLast; i++)
             {
                 scoreSpace += " ";
             }
-            var scoreString = $"    SCORE: {score}{scoreSpace}";
-            return scoreString;
+            var scoreString = $"        FRUITS: {apples}{appleSpace}  SCORE: {score}{scoreSpace}";
+            return applesAndScore;
         }
     }
 }

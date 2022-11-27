@@ -79,7 +79,7 @@ namespace SnakeInConsoleV1.Models
                     break;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
-                var scoreString = getScore.GetScore(score);
+                var scoreString = getScore.GetScore(score, difficulty);
                 renderData.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
                 renderData.Add("\r\n");
                 for (int y = 0; y < gridY.Length; y++)

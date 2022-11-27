@@ -16,7 +16,15 @@ namespace SnakeInConsoleV1.Models
             _name = name;
             _score = score;
         }
-        public string Name { get; set; }
-        public int Score { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+        public int Score
+        {
+            get { return _score; }
+            set { _score = value; }
+        }
     }
 }

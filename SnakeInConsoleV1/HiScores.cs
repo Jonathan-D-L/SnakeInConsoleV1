@@ -44,26 +44,28 @@ namespace SnakeInConsoleV1
             }
             if (difficulty == 1)
             {
-                playerScore = Convert.ToInt32(Math.Floor(playerScore * 1.5));
+                playerScore *= 2;
             }
             if (difficulty == 2)
             {
-                playerScore *= 2;
+                playerScore *= 4;
             }
             var scores = new List<playerScore>();
             scores = GetHiScoresFromFile();
-            bool newHiScore = scores.Any(s => s.Name == playerName && s.Score > playerScore);
+            bool newHiScore = scores.Any(s => s.Name == playerName && s.Score <= playerScore);
             if (newHiScore == true)
             {
-                scores.Find(n => n.Name == playerName).Score = playerScore;
+                scores.First(n => n.Name == playerName).Score = playerScore;
             }
-            else
+            bool newHiScoreAndPlayer = scores.Any(s => s.Name == playerName);
+            if (newHiScoreAndPlayer == false)
             {
                 scores.Add(new playerScore(playerName, playerScore));
             }
-            while(scores.Count > 10)
+            scores = scores.OrderByDescending(s => s.Score).ToList();
+            while (scores.Count > 10)
             {
-                scores.RemoveAt(scores.Count - 1);
+               scores.RemoveAt(scores.Count - 1);
             }
             if (File.Exists($"{directory}\\{fileName}"))
             {
