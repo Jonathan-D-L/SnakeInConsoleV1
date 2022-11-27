@@ -30,7 +30,7 @@ namespace SnakeInConsoleV1
                     }
                     if (difficulty == 3)
                     {
-                        difficulty = 0;
+                        difficulty = 2;
                     }
                 }
                 if (selector == 1)
