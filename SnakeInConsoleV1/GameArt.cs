@@ -173,7 +173,7 @@ namespace SnakeInConsoleV1
                 fruitSpace += " ";
             }
 
-            if (hiScores.Any(s => s.Score < fruitAndScore[1]))
+            if (hiScores.Any(s => s.Score < fruitAndScore[1]) || hiScores.Count == 0)
             {
                 while (true)
                 {
