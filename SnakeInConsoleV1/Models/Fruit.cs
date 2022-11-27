@@ -38,7 +38,8 @@ namespace SnakeInConsoleV1.Models
                 var randX = rand.Next(0, 28);
                 var randY = rand.Next(0, 26);
                 bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
-                if (fruitUnderSnake == false)
+                bool fruitUnderFriut = fruit.Any(s => s.PosX == randX && s.PosY == randY);
+                if (fruitUnderSnake == false && fruitUnderFriut == false)
                 {
                     fruit.Add(new Fruit { PosX = randX, PosY = randY });
                     if (fruit.Count > 1)
