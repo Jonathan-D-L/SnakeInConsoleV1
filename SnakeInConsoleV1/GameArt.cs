@@ -173,7 +173,7 @@ namespace SnakeInConsoleV1
                 fruitSpace += " ";
             }
 
-            if (hiScores.Any(s => s.Score < fruitAndScore[1]) || hiScores.Count == 0)
+            if (hiScores.Any(s => s.Score < fruitAndScore[1]) || hiScores.Count < 10)
             {
                 while (true)
                 {
@@ -195,7 +195,7 @@ namespace SnakeInConsoleV1
                     if (input == (char)13)
                     {
                         var space = ' ';
-                        if (playerName.All(x => x == space))
+                        if (playerName.All(x => x == space) || playerName.Length == 0)
                         {
                             playerName = string.Empty;
                         }
@@ -234,8 +234,6 @@ namespace SnakeInConsoleV1
         {
             var gameOverImg = new CanvasImage("images\\GameOver.png");
             int selector = 1;
-            var getHiScores = new HiScores();
-            var hiScores = getHiScores.GetHiScoresFromFile();
             var fruit = fruitAndScore[0];
             var a = fruit.ToString();
             var spacesNeded = 10 - a.Length;

@@ -44,7 +44,7 @@ namespace SnakeInConsoleV1
                 scores.First(n => n.Name == playerName).Score = fruitAndScore[1];
             }
             bool newHiScoreAndPlayer = scores.Any(s => s.Name == playerName);
-            if (newHiScoreAndPlayer == false && playerName.Count() != 0)
+            if (newHiScoreAndPlayer == false && playerName != string.Empty)
             {
                 scores.Add(new playerScore(playerName, fruitAndScore[1]));
             }
