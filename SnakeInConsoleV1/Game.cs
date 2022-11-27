@@ -43,7 +43,7 @@ namespace SnakeInConsoleV1.Models
                 }
                 if (keyList.Count > 0)
                 {
-                    var singleKey = keyList.First();
+                    var singleKey = keyList.Last();
                     switch (singleKey.Key)
                     {
                         case ConsoleKey.W:
