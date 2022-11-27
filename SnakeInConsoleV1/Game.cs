@@ -19,10 +19,12 @@ namespace SnakeInConsoleV1.Models
             var getFruit = new Fruit();
             var getGameArt = new GameArt();
             var getScore = new ScoreCounter();
+            var getScoreString = new RenderScore();
             var saveScoreAndName = new HiScores();
 
             var gridY = new int[26];
             var gridX = new int[28];
+            var fruitAndScore = new int[2];
             var renderData = new List<string>();
             var action = 'w';
             var snake = getSnake.GetSnake();
@@ -79,7 +81,8 @@ namespace SnakeInConsoleV1.Models
                     break;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
-                var scoreString = getScore.GetScore(score, difficulty);
+                fruitAndScore = getScore.GetScore(score, difficulty);
+                var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
                 renderData.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
                 renderData.Add("\r\n");
                 for (int y = 0; y < gridY.Length; y++)
@@ -133,8 +136,8 @@ namespace SnakeInConsoleV1.Models
                 else if (difficulty == 2)
                     System.Threading.Thread.Sleep(75);
             }
-            var playerName = getGameArt.ShowGameOver();
-            saveScoreAndName.AddHiScore(playerName, score, difficulty);
+            var playerName = getGameArt.ShowGameOver(fruitAndScore);
+            saveScoreAndName.AddHiScore(playerName, fruitAndScore);
         }
 
     }

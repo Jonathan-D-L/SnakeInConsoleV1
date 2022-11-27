@@ -14,11 +14,11 @@ namespace SnakeInConsoleV1
 {
     internal class HiScores
     {
+        static readonly string directory = "Files";
+        static readonly string fileName = "HiScores.json";
         public List<playerScore> GetHiScoresFromFile()
         {
             var scores = new List<playerScore>();
-            var directory = "Files";
-            var fileName = "HiScores.json";
             if (File.Exists($"{directory}\\{fileName}"))
             {
                 string jsonProductsFile = File.ReadAllText($"{directory}\\{fileName}");
@@ -34,38 +34,24 @@ namespace SnakeInConsoleV1
             return scores;
 
         }
-        public void AddHiScore(string playerName, int playerScore, int difficulty)
+        public void AddHiScore(string playerName, int[] fruitAndScore)
         {
-            var directory = "Files";
-            var fileName = "HiScores.json";
-            if (difficulty == 0)
-            {
-                playerScore *= 1;
-            }
-            if (difficulty == 1)
-            {
-                playerScore *= 2;
-            }
-            if (difficulty == 2)
-            {
-                playerScore *= 4;
-            }
             var scores = new List<playerScore>();
             scores = GetHiScoresFromFile();
-            bool newHiScore = scores.Any(s => s.Name == playerName && s.Score <= playerScore);
+            bool newHiScore = scores.Any(s => s.Name == playerName && s.Score <= fruitAndScore[1]);
             if (newHiScore == true)
             {
-                scores.First(n => n.Name == playerName).Score = playerScore;
+                scores.First(n => n.Name == playerName).Score = fruitAndScore[1];
             }
             bool newHiScoreAndPlayer = scores.Any(s => s.Name == playerName);
             if (newHiScoreAndPlayer == false)
             {
-                scores.Add(new playerScore(playerName, playerScore));
+                scores.Add(new playerScore(playerName, fruitAndScore[1]));
             }
             scores = scores.OrderByDescending(s => s.Score).ToList();
             while (scores.Count > 10)
             {
-               scores.RemoveAt(scores.Count - 1);
+                scores.RemoveAt(scores.Count - 1);
             }
             if (File.Exists($"{directory}\\{fileName}"))
             {
@@ -76,8 +62,6 @@ namespace SnakeInConsoleV1
         }
         public void CheckForHiScoresFile()
         {
-            var directory = "Files";
-            var fileName = "HiScores.json";
             if (!File.Exists($"{directory}\\{fileName}"))
             {
                 if (!Directory.Exists(directory))
