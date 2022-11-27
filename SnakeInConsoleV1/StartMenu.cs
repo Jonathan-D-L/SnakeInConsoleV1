@@ -35,7 +35,7 @@ namespace SnakeInConsoleV1
                 }
                 if (selector == 1)
                 {
-                    var hiScores = showHiScores.ShowHiScores();
+                    var hiScores = showHiScores.GetHiScoresFromFile();
                     getGameArt.ShowHiscores(hiScores);
                 }
                 if (selector == 2)

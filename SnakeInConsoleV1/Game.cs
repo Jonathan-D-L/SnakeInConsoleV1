@@ -62,23 +62,23 @@ namespace SnakeInConsoleV1.Models
                 }
                 Console.Clear();
                 getSnake.MoveSnake(action);
-                if (snake.First().posX == fruit.First().posX && snake.First().posY == fruit.First().posY)
+                if (snake.First().PosX == fruit.First().PosX && snake.First().PosY == fruit.First().PosY)
                 {
                     getSnake.GetSnakeTail();
                     fruit = getFruit.SpawnFruit(snake);
                     score++;
                 }
                 var snakeColided = snake
-                    .GroupBy(i => new { i.posY, i.posX })
+                    .GroupBy(i => new { i.PosY, i.PosX })
                     .Where(g => g
                     .Count() > 1)
                     .Select(g => g.Key)
                     .FirstOrDefault();
-                if (snake.Any(s => s.posX == -1 || s.posX == 28 || s.posY == -1 || s.posY == 26 || snakeColided != null))
+                if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26 || snakeColided != null))
                 {
                     break;
                 }
-                var snakeOrdered = snake.OrderBy(s => s.posY).ThenBy(s => s.posX).ToList();
+                var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 var scoreString = getScore.GetScore(score);
                 renderData.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
                 renderData.Add("\r\n");
@@ -88,7 +88,7 @@ namespace SnakeInConsoleV1.Models
                     for (int x = 0; x < gridX.Length; x++)
                     {
                         var s = snakeOrdered[index];
-                        if (y == s.posY && x == s.posX)
+                        if (y == s.PosY && x == s.PosX)
                         {
                             if (index == snake.Count - 1)
                             {
@@ -102,7 +102,7 @@ namespace SnakeInConsoleV1.Models
                         }
                         else
                         {
-                            if (y == fruit.First().posY && x == fruit.First().posX)
+                            if (y == fruit.First().PosY && x == fruit.First().PosX)
                             {
                                 renderData.Add($"[on rgb(200,30,30)]  [/]");
                             }

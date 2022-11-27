@@ -18,7 +18,7 @@ namespace SnakeInConsoleV1.Models
             Console.SetWindowSize(61, 29);
             Console.CursorVisible = false;
             var checkForHiScoreFile = new HiScores();
-            checkForHiScoreFile.CheckHiscoresFile();
+            checkForHiScoreFile.CheckForHiScoresFile();
             var showStartMenu = new StartMenu();
             showStartMenu.ShowStartMenu();
         }

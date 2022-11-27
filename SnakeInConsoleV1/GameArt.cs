@@ -1,4 +1,5 @@
 ﻿using SixLabors.ImageSharp.ColorSpaces;
+using SnakeInConsoleV1.Models;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace SnakeInConsoleV1
                 Console.SetCursorPosition(32, Console.CursorTop + 1);
                 AnsiConsole.Markup($"[black on rgb(192,222,114)],_____,[/]");
                 System.Threading.Thread.Sleep(250);
-                if (Console.KeyAvailable) 
+                if (Console.KeyAvailable)
                 {
                     var input = Console.ReadKey().KeyChar;
                     if (input == ' ')
@@ -192,35 +193,22 @@ namespace SnakeInConsoleV1
             }
             return playerName;
         }
-        public void ShowHiscores(List<string> hiScores)
+        public void ShowHiscores(List<playerScore> hiScores)
         {
             var scoreBoard = new CanvasImage("images\\ScoreBoard.png");
             Console.Clear();
             AnsiConsole.Write(scoreBoard);
             Console.SetCursorPosition(13, Console.CursorTop - 18);
             AnsiConsole.Markup($"[black on rgb(192,222,114)]~~~~~~~~~~~ SCOREBOARD ~~~~~~~~~~~[/]");
-            var sortedHiScores = hiScores.OrderByDescending(h => Convert.ToInt32(h.Split('|')[1])).ToList();
-            var top10 = 0;
+            var top10 = 1;
             Console.SetCursorPosition(13, Console.CursorTop + 1);
-            foreach (var sHS in sortedHiScores)
+            foreach (var h in hiScores)
             {
-                if (top10 < 10)
-                {
-                    var name = sHS.Split('|')[0];
-                    var score = sHS.Split('|')[1];
-                    top10++;
-                    Console.SetCursorPosition(13, Console.CursorTop + 1);
-                    AnsiConsole.Markup($"[black on rgb(192,222,114)]{top10}. {name}[/]");
-                    Console.SetCursorPosition(33, Console.CursorTop);
-                    AnsiConsole.Markup($"[black on rgb(192,222,114)]SCORE: {score}[/]");
-                }
-                else
-                {
-                    break;
-                }
-            }
-            if (hiScores.Count == 0)
-            {
+                Console.SetCursorPosition(13, Console.CursorTop + 1);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]{top10}. {h.Name}[/]");
+                Console.SetCursorPosition(33, Console.CursorTop);
+                AnsiConsole.Markup($"[black on rgb(192,222,114)]SCORE: {h.Score}[/]");
+                top10++;
             }
             Console.ReadKey();
         }

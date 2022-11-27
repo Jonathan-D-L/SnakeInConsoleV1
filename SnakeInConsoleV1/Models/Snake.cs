@@ -27,12 +27,12 @@ namespace SnakeInConsoleV1.Models
         public Snake()
         {
         }
-        public int posY
+        public int PosY
         {
             get { return _posY; }
             set { _posY = value; }
         }
-        public int posX
+        public int PosX
         {
             get { return _posX; }
             set { _posX = value; }
@@ -41,8 +41,8 @@ namespace SnakeInConsoleV1.Models
         {
             if (snakeLength.Count == 0)
             {
-                snakeLength.Add(new Snake { posX = 13, posY = 12 });
-                snakeLength.Add(new Snake { posX = 13, posY = 13 });
+                snakeLength.Add(new Snake { PosX = 13, PosY = 12 });
+                snakeLength.Add(new Snake { PosX = 13, PosY = 13 });
             }
             return snakeLength;
         }
@@ -52,33 +52,33 @@ namespace SnakeInConsoleV1.Models
             var prior = snakeLength[^2];
             var posY = 0;
             var posX = 0;
-            if (prior.posY == last.posY)
+            if (prior.PosY == last.PosY)
             {
-                if (prior.posX < last.posX)
+                if (prior.PosX < last.PosX)
                 {
-                    posY = last.posY;
-                    posX = last.posX + 1;
+                    posY = last.PosY;
+                    posX = last.PosX + 1;
                 }
-                if (prior.posX > last.posX)
+                if (prior.PosX > last.PosX)
                 {
-                    posY = last.posY;
-                    posX = last.posX - 1;
+                    posY = last.PosY;
+                    posX = last.PosX - 1;
                 }
             }
-            if (prior.posX == last.posX)
+            if (prior.PosX == last.PosX)
             {
-                if (prior.posY < last.posY)
+                if (prior.PosY < last.PosY)
                 {
-                    posY = last.posY + 1;
-                    posX = last.posX;
+                    posY = last.PosY + 1;
+                    posX = last.PosX;
                 }
-                if (prior.posY > last.posY)
+                if (prior.PosY > last.PosY)
                 {
-                    posY = last.posY - 1;
-                    posX = last.posX;
+                    posY = last.PosY - 1;
+                    posX = last.PosX;
                 }
             }
-            snakeLength.Add(new Snake { posX = posX, posY = posY });
+            snakeLength.Add(new Snake { PosX = posX, PosY = posY });
             return snakeLength;
         }
 
@@ -93,30 +93,30 @@ namespace SnakeInConsoleV1.Models
                 foreach (var s in snakeLength)
                 {
                     prevY = currentY;
-                    currentY = s.posY;
+                    currentY = s.PosY;
                     prevX = currentX;
-                    currentX = s.posX;
+                    currentX = s.PosX;
                     if (prevX != -1 && prevY != -1)
                     {
-                        s.posX = prevX;
-                        s.posY = prevY;
+                        s.PosX = prevX;
+                        s.PosY = prevY;
                     }
                 }
                 if (action == 'w')
                 {
-                    snakeLength.Select(s => s).First().posY--;
+                    snakeLength.Select(s => s).First().PosY--;
                 }
                 if (action == 's')
                 {
-                    snakeLength.Select(s => s).First().posY++;
+                    snakeLength.Select(s => s).First().PosY++;
                 }
                 if (action == 'a')
                 {
-                    snakeLength.Select(s => s).First().posX--;
+                    snakeLength.Select(s => s).First().PosX--;
                 }
                 if (action == 'd')
                 {
-                    snakeLength.Select(s => s).First().posX++;
+                    snakeLength.Select(s => s).First().PosX++;
                 }
             }
         }

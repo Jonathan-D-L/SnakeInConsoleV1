@@ -20,12 +20,12 @@ namespace SnakeInConsoleV1.Models
         public Fruit()
         {
         }
-        public int posY
+        public int PosY
         {
             get { return _posY; }
             set { _posY = value; }
         }
-        public int posX
+        public int PosX
         {
             get { return _posX; }
             set { _posX = value; }
@@ -37,10 +37,10 @@ namespace SnakeInConsoleV1.Models
                 var rand = new Random();
                 var randX = rand.Next(0, 28);
                 var randY = rand.Next(0, 26);
-                bool fruitUnderSnake = snake.Any(s => s.posX == randX && s.posY == randY);
+                bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
                 if (fruitUnderSnake == false)
                 {
-                    fruit.Add(new Fruit { posX = randX, posY = randY });
+                    fruit.Add(new Fruit { PosX = randX, PosY = randY });
                     if (fruit.Count > 1)
                     {
                         fruit.RemoveAt(0);
