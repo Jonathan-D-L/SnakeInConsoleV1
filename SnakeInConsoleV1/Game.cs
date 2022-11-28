@@ -23,6 +23,7 @@ namespace SnakeInConsoleV1.Models
             var getScore = new ScoreCounter();
             var getScoreString = new RenderScore();
             var saveScoreAndName = new HiScores();
+            var keyList = new List<ConsoleKeyInfo>();
 
             var gridY = new int[26];
             var gridX = new int[28];
@@ -35,11 +36,14 @@ namespace SnakeInConsoleV1.Models
             int index = 0;
             while (true)
             {
-                var keyList = new List<ConsoleKeyInfo>();
                 while (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(true);
                     keyList.Add(key);
+                }
+                if (keyList.Count > 1)
+                {
+                    keyList.RemoveAt(0);
                 }
                 if (keyList.Count > 0)
                 {
