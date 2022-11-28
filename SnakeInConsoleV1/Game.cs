@@ -148,10 +148,6 @@ namespace SnakeInConsoleV1.Models
             {
                 PlayGame(difficulty);
             }
-            if (playAgain == 0)
-            {
-
-            }
         }
     }
 }
