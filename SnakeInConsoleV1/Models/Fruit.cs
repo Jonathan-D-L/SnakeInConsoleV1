@@ -32,23 +32,33 @@ namespace SnakeInConsoleV1.Models
         }
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
-            while (true)
+            var rand = new Random();
+            var listX = new List<int>();
+            var listY = new List<int>();
+            bool s = true;
+            bool f = true;
+            fruit.Clear();
+            for (int y = 0; y < 26; y++)
             {
-                var rand = new Random();
-                var randX = rand.Next(0, 28);
-                var randY = rand.Next(0, 26);
-                bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
-                bool fruitUnderFriut = fruit.Any(f => f.PosX == randX && f.PosY == randY);
-                if (fruitUnderSnake == false && fruitUnderFriut == false)
+                s = snake.Any(s => s.PosY == y);
+                f = fruit.Any(f => f.PosY == y);
+                if (s == false && f == false)
                 {
-                    fruit.Add(new Fruit { PosX = randX, PosY = randY });
-                    if (fruit.Count > 1)
+                    listY.Add(y);
+                    for (int x = 0; x < 28; x++)
                     {
-                        fruit.RemoveAt(0);
+                        s = snake.Any(s => s.PosX == x);
+                        f = fruit.Any(f => f.PosX == x);
+                        if (s == false && f == false)
+                        {
+                            listX.Add(x);
+                        }
                     }
-                    break;
                 }
             }
+            var randX = rand.Next(listX.Count);
+            var randY = rand.Next(listY.Count);
+            fruit.Add(new Fruit { PosX = listX[randX], PosY = listY[randY] });
             return fruit;
         }
         public List<Fruit> GetFruitPos()
