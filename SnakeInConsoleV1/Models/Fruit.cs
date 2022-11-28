@@ -32,22 +32,37 @@ namespace SnakeInConsoleV1.Models
         }
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
-            while (true)
+            var rand = new Random();
+            var listX = new List<int>();
+            var listY = new List<int>();
+            var xPos = 0;
+            var yPos = 0;
+            for (int x = 0; x < 28; x++)
             {
-                var rand = new Random();
-                var randX = rand.Next(0, 28);
-                var randY = rand.Next(0, 26);
-                bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
-                bool fruitUnderFriut = fruit.Any(f => f.PosX == randX && f.PosY == randY);
-                if (fruitUnderSnake == false && fruitUnderFriut == false)
+                bool snX = snake.Any(s => s.PosY == x);
+                bool fnX = fruit.Any(f => f.PosY == x);
+                if (snX == false && fnX == false)
                 {
-                    fruit.Add(new Fruit { PosX = randX, PosY = randY });
-                    if (fruit.Count > 1)
-                    {
-                        fruit.RemoveAt(0);
-                    }
-                    break;
+                    listX.Add(xPos);
                 }
+                xPos++;
+            }
+            for (int y = 0; y < 26; y++)
+            {
+                bool snY = snake.Any(s => s.PosY == y);
+                bool fnY = fruit.Any(f => f.PosY == y);
+                if (snY == false && fnY == false)
+                {
+                    listY.Add(yPos);
+                }
+                yPos++;
+            }
+            var randX = rand.Next(listX.Count);
+            var randY = rand.Next(listY.Count);
+            fruit.Add(new Fruit { PosX = listX[randX], PosY = listY[randY] });
+            if (fruit.Count > 1)
+            {
+                fruit.RemoveAt(0);
             }
             return fruit;
         }
