@@ -23,15 +23,17 @@ namespace SnakeInConsoleV1.Models
             var getScore = new ScoreCounter();
             var getScoreString = new RenderScore();
             var saveScoreAndName = new HiScores();
-            var keyList = new List<ConsoleKeyInfo>();
 
+            var keyList = new List<ConsoleKeyInfo>();
+            var renderData = new List<string>();
+            var fruitAndScore = new int[2];
             var gridY = new int[26];
             var gridX = new int[28];
-            var fruitAndScore = new int[2];
-            var renderData = new List<string>();
-            var action = 'w';
+
             var snake = getSnake.GetSnake();
             var fruit = getFruit.SpawnFruit(snake);
+
+            var action = 'w';
             var score = 0;
             int index = 0;
             while (true)
