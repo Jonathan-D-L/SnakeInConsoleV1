@@ -32,29 +32,13 @@ namespace SnakeInConsoleV1.Models
         }
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
-            if (fruit.Count == 0)
-            {
-                while (true)
-                {
-                    var rand = new Random();
-                    var randX = rand.Next(0, 28);
-                    var randY = rand.Next(0, 26);
-                    bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
-                    if (fruitUnderSnake == false)
-                    {
-                        fruit.Add(new Fruit { PosX = randX, PosY = randY });
-                        break;
-                    }
-                }
-            }
             while (true)
             {
                 var rand = new Random();
                 var randX = rand.Next(0, 28);
                 var randY = rand.Next(0, 26);
-                var lF = fruit.Last();
                 bool fruitUnderSnake = snake.Any(s => s.PosX == randX && s.PosY == randY);
-                bool fruitUnderFriut = lF.PosX == randX && lF.PosY == randY;
+                bool fruitUnderFriut = fruit.Any(f => f.PosX == randX && f.PosY == randY);
                 if (fruitUnderSnake == false && fruitUnderFriut == false)
                 {
                     fruit.Add(new Fruit { PosX = randX, PosY = randY });
