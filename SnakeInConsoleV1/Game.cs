@@ -7,8 +7,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
+
 
 namespace SnakeInConsoleV1.Models
 {
@@ -18,63 +17,53 @@ namespace SnakeInConsoleV1.Models
         {
             var getSnake = new Snake();
             var getFruit = new Fruit();
+            var getColors = new ColorSet();
+            var getScore = new ScoreCounter();
+            var saveScoreAndName = new HiScores();
+            var getScoreString = new RenderScore();
+            var getPlayerInput = new PlayerInput();
             var getGameOverMenu = new GameOverMenu();
             var getSubMenuPlayAgain = new SubMenuPlayAgain();
-            var getScore = new ScoreCounter();
-            var getScoreString = new RenderScore();
-            var saveScoreAndName = new HiScores();
-
-            var keyList = new List<ConsoleKeyInfo>();
-            var renderData = new List<string>();
-            var fruitAndScore = new int[2];
-            var gridY = new int[26];
             var gridX = new int[28];
+            var gridY = new int[26];
+            var fruitAndScore = new int[2];
+            var keyList = new List<ConsoleKeyInfo>();
 
             var snake = getSnake.GetSnake();
+            var color = getColors.GetGreenSet();
             var fruit = getFruit.SpawnFruit(snake);
 
-            var action = 'w';
+            var level = 0;
+            var index = 0;
             var score = 0;
-            int index = 0;
+            var action = 'w';
             while (true)
             {
-                while (Console.KeyAvailable)
+                if (snake.Count == 5)
                 {
-                    var key = Console.ReadKey(true);
-                    keyList.Add(key);
+                    level++;
                 }
-                if (keyList.Count > 1)
+                if (level == 1 && snake.Count >= 5)
                 {
-                    keyList.RemoveAt(0);
+                    snake.RemoveRange(3, snake.Count - 3);
+                    snake = getSnake.GetSnake();
+                    color = getColors.GetBlueSet();
                 }
-                if (keyList.Count > 0)
+                if (level == 2 && snake.Count >= 5)
                 {
-                    var singleKey = keyList.Last();
-                    switch (singleKey.Key)
-                    {
-                        case ConsoleKey.W:
-                        case ConsoleKey.UpArrow:
-                            if (action != 's')
-                                action = 'w';
-                            break;
-                        case ConsoleKey.S:
-                        case ConsoleKey.DownArrow:
-                            if (action != 'w')
-                                action = 's';
-                            break;
-                        case ConsoleKey.A:
-                        case ConsoleKey.LeftArrow:
-                            if (action != 'd')
-                                action = 'a';
-                            break;
-                        case ConsoleKey.D:
-                        case ConsoleKey.RightArrow:
-                            if (action != 'a')
-                                action = 'd';
-                            break;
-                    }
+                    snake.RemoveRange(3, snake.Count - 3);
+                    snake = getSnake.GetSnake();
+                    color = getColors.GetPurpleSet();
                 }
+                if (level == 3 && snake.Count >= 5)
+                {
+                    snake.RemoveRange(3, snake.Count - 3);
+                    snake = getSnake.GetSnake();
+                    color = getColors.GetRedSet();
+                }
+                string render = "";
                 Console.Clear();
+                action = getPlayerInput.GetPLayerInput(action, keyList);
                 getSnake.MoveSnake(action);
                 var snakeColided = snake.GroupBy(i => new { i.PosY, i.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
                 if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
@@ -90,11 +79,10 @@ namespace SnakeInConsoleV1.Models
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = getScore.GetScore(score, difficulty);
                 var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
-                renderData.Add($"[rgb(192,222,114) on rgb(78,95,39)]{scoreString}[/]");
-                renderData.Add("\r\n");
+                render += $"[white on rgb({color[0]})]{scoreString}\r\n[/]"; //border top
                 for (int y = 0; y < gridY.Length; y++)
                 {
-                    renderData.Add($"[on rgb(78,95,39)]  [/]");
+                    render += $"[on rgb({color[0]})]  [/]"; //border
                     for (int x = 0; x < gridX.Length; x++)
                     {
                         var s = snakeOrdered[index];
@@ -108,34 +96,27 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-                            renderData.Add($"[white on rgb(78,95,39)]  [/]");
+                            render += $"[white on rgb({color[0]})]  [/]"; //snake
                         }
                         else
                         {
                             if (y == fruit.First().PosY && x == fruit.First().PosX)
                             {
-                                renderData.Add($"[on rgb(200,30,30)]  [/]");
+                                render += $"[on rgb({color[2]})]  [/]"; //fruit
                             }
                             else
                             {
-                                renderData.Add($"[on rgb(192,222,114)]  [/]");
+                                render += $"[on rgb({color[1]})]  [/]"; //background
                             }
                         }
                     }
-                    renderData.Add($"[on rgb(78,95,39)]  [/]");
-                    renderData.Add("\r\n");
+                    render += $"[on rgb({color[0]})]  \r\n[/]"; //border
                 }
                 for (int x = 0; x <= gridX.Length + 1; x++)
                 {
-                    renderData.Add($"[on rgb(78,95,39)]  [/]");
-                }
-                string render = "";
-                for (int y = 0; y < renderData.Count; ++y)
-                {
-                    render += (renderData[y]);
+                    render += $"[on rgb({color[0]})]  [/]"; //border
                 }
                 AnsiConsole.Markup(render);
-                renderData.Clear();
                 if (difficulty == 0)
                     System.Threading.Thread.Sleep(250);
                 else if (difficulty == 1)

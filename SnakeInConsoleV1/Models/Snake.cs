@@ -41,6 +41,7 @@ namespace SnakeInConsoleV1.Models
         {
             if (snakeLength.Count == 0)
             {
+                snakeLength.Add(new Snake { PosX = 13, PosY = 11 });
                 snakeLength.Add(new Snake { PosX = 13, PosY = 12 });
                 snakeLength.Add(new Snake { PosX = 13, PosY = 13 });
             }
