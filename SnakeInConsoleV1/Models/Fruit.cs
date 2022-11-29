@@ -33,8 +33,8 @@ namespace SnakeInConsoleV1.Models
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
             var rand = new Random();
-            var listX = new List<int>();
             var listY = new List<int>();
+            var listX = new List<int>(); //this list gets big fix that?
             bool s = true;
             bool f = true;
             fruit.Clear();

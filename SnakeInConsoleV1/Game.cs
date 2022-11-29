@@ -19,11 +19,13 @@ namespace SnakeInConsoleV1.Models
             var getFruit = new Fruit();
             var getColors = new ColorSet();
             var getScore = new ScoreCounter();
+            var getDifficulty = new Difficulty();
             var saveScoreAndName = new HiScores();
             var getScoreString = new RenderScore();
             var getPlayerInput = new PlayerInput();
             var getGameOverMenu = new GameOverMenu();
             var getSubMenuPlayAgain = new SubMenuPlayAgain();
+
             var gridX = new int[28];
             var gridY = new int[26];
             var fruitAndScore = new int[2];
@@ -36,26 +38,31 @@ namespace SnakeInConsoleV1.Models
             var level = 0;
             var index = 0;
             var score = 0;
+            var sLengthMax = 653;
             var action = 'w';
             while (true)
             {
                 if (snake.Count == 5)
                 {
                     level++;
+                    if (level == sLengthMax)
+                    {
+                        break;
+                    }
                 }
-                if (level == 1 && snake.Count >= 5)
+                if (level == 1 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
                     snake = getSnake.GetSnake();
                     color = getColors.GetBlueSet();
                 }
-                if (level == 2 && snake.Count >= 5)
+                if (level == 2 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
                     snake = getSnake.GetSnake();
                     color = getColors.GetPurpleSet();
                 }
-                if (level == 3 && snake.Count >= 5)
+                if (level == 3 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
                     snake = getSnake.GetSnake();
@@ -117,12 +124,7 @@ namespace SnakeInConsoleV1.Models
                     render += $"[on rgb({color[0]})]  [/]"; //border
                 }
                 AnsiConsole.Markup(render);
-                if (difficulty == 0)
-                    System.Threading.Thread.Sleep(250);
-                else if (difficulty == 1)
-                    System.Threading.Thread.Sleep(150);
-                else if (difficulty == 2)
-                    System.Threading.Thread.Sleep(75);
+                getDifficulty.CurrentDifficulty(difficulty, level);
             }
             var playerName = getGameOverMenu.ShowGameOverMenu(fruitAndScore);
             saveScoreAndName.AddHiScore(playerName, fruitAndScore);
