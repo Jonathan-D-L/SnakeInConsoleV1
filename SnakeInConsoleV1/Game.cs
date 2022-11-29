@@ -42,13 +42,9 @@ namespace SnakeInConsoleV1.Models
             var action = 'w';
             while (true)
             {
-                if (snake.Count == 5)
+                if (snake.Count == sLengthMax && level < 3)
                 {
                     level++;
-                    if (level == sLengthMax)
-                    {
-                        break;
-                    }
                 }
                 if (level == 1 && snake.Count >= sLengthMax)
                 {
