@@ -14,15 +14,14 @@ namespace SnakeInConsoleV1
             while (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true);
-                keyList.Add(key);
-            }
-            if (keyList.Count > 1)
-            {
-                keyList.RemoveAt(0);
+                if (key.KeyChar != action && keyList.Count < 2 && keyList.Any(k=>k == key) == false)
+                {
+                    keyList.Add(key);
+                }
             }
             if (keyList.Count > 0)
             {
-                var singleKey = keyList.Last();
+                var singleKey = keyList.First();
                 switch (singleKey.Key)
                 {
                     case ConsoleKey.W:
@@ -46,6 +45,10 @@ namespace SnakeInConsoleV1
                             action = 'd';
                         break;
                 }
+            }
+            if (keyList.Count != 0)
+            {
+                keyList.RemoveAt(0);
             }
             return action;
         }
