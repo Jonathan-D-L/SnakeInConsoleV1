@@ -38,7 +38,7 @@ namespace SnakeInConsoleV1.Models
             var level = 0;
             var index = 0;
             var score = 0;
-            var sLengthMax = 653;
+            var sLengthMax = 503;
             var action = 'w';
             while (true)
             {
