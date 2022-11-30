@@ -65,7 +65,6 @@ namespace SnakeInConsoleV1.Models
                     color = getColors.GetRedSet();
                 }
                 string render = "";
-                Console.Clear();
                 action = getPlayerInput.GetPLayerInput(action, keyList);
                 getSnake.MoveSnake(action);
                 var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
@@ -120,6 +119,7 @@ namespace SnakeInConsoleV1.Models
                 {
                     render += $"[on rgb({color[0]})]  [/]"; //border
                 }
+                Console.Clear();
                 AnsiConsole.Markup(render);
                 getDifficulty.CurrentDifficulty(difficulty, level);
             }
