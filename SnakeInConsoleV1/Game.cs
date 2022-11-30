@@ -36,8 +36,8 @@ namespace SnakeInConsoleV1.Models
             var fruit = getFruit.SpawnFruit(snake);
 
             var level = 0;
-            var index = 0;
             var score = 0;
+            var index = 0;
             var sLengthMax = 503;
             var action = 'w';
             while (true)
@@ -68,7 +68,7 @@ namespace SnakeInConsoleV1.Models
                 Console.Clear();
                 action = getPlayerInput.GetPLayerInput(action, keyList);
                 getSnake.MoveSnake(action);
-                var snakeColided = snake.GroupBy(i => new { i.PosY, i.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
+                var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
                 if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
                 {
                     break;
@@ -99,7 +99,7 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-                            render += $"[white on rgb({color[0]})]  [/]"; //snake
+                            render += $"[on rgb({color[0]})]  [/]"; //snake
                         }
                         else
                         {

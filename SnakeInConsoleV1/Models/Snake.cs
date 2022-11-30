@@ -85,40 +85,37 @@ namespace SnakeInConsoleV1.Models
 
         public void MoveSnake(char action)
         {
-            if (action != '0')
+            int prevY = -1;
+            int currentY = -1;
+            int prevX = -1;
+            int currentX = -1;
+            foreach (var s in snakeLength)
             {
-                int prevY = -1;
-                int currentY = -1;
-                int prevX = -1;
-                int currentX = -1;
-                foreach (var s in snakeLength)
+                prevY = currentY;
+                currentY = s.PosY;
+                prevX = currentX;
+                currentX = s.PosX;
+                if (prevX != -1 && prevY != -1)
                 {
-                    prevY = currentY;
-                    currentY = s.PosY;
-                    prevX = currentX;
-                    currentX = s.PosX;
-                    if (prevX != -1 && prevY != -1)
-                    {
-                        s.PosX = prevX;
-                        s.PosY = prevY;
-                    }
+                    s.PosX = prevX;
+                    s.PosY = prevY;
                 }
-                if (action == 'w')
-                {
-                    snakeLength.Select(s => s).First().PosY--;
-                }
-                if (action == 's')
-                {
-                    snakeLength.Select(s => s).First().PosY++;
-                }
-                if (action == 'a')
-                {
-                    snakeLength.Select(s => s).First().PosX--;
-                }
-                if (action == 'd')
-                {
-                    snakeLength.Select(s => s).First().PosX++;
-                }
+            }
+            if (action == 'w')
+            {
+                snakeLength.Select(s => s).First().PosY--;
+            }
+            if (action == 's')
+            {
+                snakeLength.Select(s => s).First().PosY++;
+            }
+            if (action == 'a')
+            {
+                snakeLength.Select(s => s).First().PosX--;
+            }
+            if (action == 'd')
+            {
+                snakeLength.Select(s => s).First().PosX++;
             }
         }
     }
