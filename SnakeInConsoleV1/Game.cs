@@ -76,6 +76,7 @@ namespace SnakeInConsoleV1.Models
                 if (snake.First().PosX == fruit.First().PosX && snake.First().PosY == fruit.First().PosY)
                 {
                     getSnake.GetSnakeTail();
+                    snake = getSnake.GetSnake();
                     fruit = getFruit.SpawnFruit(snake);
                     score++;
                 }
