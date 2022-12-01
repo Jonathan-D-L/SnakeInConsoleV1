@@ -79,11 +79,11 @@ namespace SnakeInConsoleV1.Models
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = getScore.GetScore(score, difficulty, level);
                 var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
-                var renderBoard = new List<string>();
-                renderBoard.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
+                var listToRender = new List<string>();
+                listToRender.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
                 for (int y = 0; y < gridY.Length; y++)
                 {
-                    renderBoard.Add($"[on rgb({color[0]})]  [/]"); //border
+                    listToRender.Add($"[on rgb({color[0]})]  [/]"); //border
                     for (int x = 0; x < gridX.Length; x++)
                     {
                         var s = snakeOrdered[index];
@@ -97,51 +97,51 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-                            if (renderBoard.Last().Contains(color[0]) && renderBoard.Count > 0)
+                            if (listToRender.Last().Contains(color[0]) && listToRender.Count > 0)
                             {
-                                var lastRender = renderBoard.Select(r => r).Last();
-                                var rSquare = lastRender.Insert(20, "  ");
-                                renderBoard.RemoveAt(renderBoard.Count -1);
-                                renderBoard.Add(rSquare);
+                                var lastRender = listToRender.Select(r => r).Last();
+                                var squarePixel = lastRender.Insert(20, "  ");
+                                listToRender.RemoveAt(listToRender.Count -1);
+                                listToRender.Add(squarePixel);
                             }
                             else
                             {
-                                renderBoard.Add($"[on rgb({color[0]})]  [/]"); //snake
+                                listToRender.Add($"[on rgb({color[0]})]  [/]"); //snake
                             }
                         }
                         else
                         {
                             if (y == fruit.First().PosY && x == fruit.First().PosX)
                             {
-                                renderBoard.Add($"[on rgb({color[2]})]  [/]"); //fruit
+                                listToRender.Add($"[on rgb({color[2]})]  [/]"); //fruit
                             }
                             else
                             {
-                                if (renderBoard.Last().Contains(color[1]) && renderBoard.Count > 0)
+                                if (listToRender.Last().Contains(color[1]) && listToRender.Count > 0)
                                 {
-                                    var lastRender = renderBoard.Select(r => r).Last();
-                                    var rSquare = lastRender.Insert(21, "  ");
-                                    renderBoard.RemoveAt(renderBoard.Count -1);
-                                    renderBoard.Add(rSquare);
+                                    var lastRender = listToRender.Select(r => r).Last();
+                                    var squarePixel = lastRender.Insert(21, "  ");
+                                    listToRender.RemoveAt(listToRender.Count -1);
+                                    listToRender.Add(squarePixel);
                                 }
                                 else
                                 {
-                                    renderBoard.Add($"[on rgb({color[1]})]  [/]"); //background
+                                    listToRender.Add($"[on rgb({color[1]})]  [/]"); //background
                                 }
                             }
                         }
                     }
-                    renderBoard.Add($"[on rgb({color[0]})]  \r\n[/]"); //border
+                    listToRender.Add($"[on rgb({color[0]})]  \r\n[/]"); //border
                 }
-                renderBoard.Add($"[on rgb({color[0]})]                         " +
-                    $"                                   [/]"); //border
-                foreach (var r in renderBoard)
+                listToRender.Add($"[on rgb({color[0]})]                         " +
+                        $"                                   [/]"); //border
+                foreach (var r in listToRender)
                 {
                     render += r;
                 }
                 Console.Clear();
                 AnsiConsole.Markup(render);
-                getDifficulty.CurrentDifficulty(difficulty, level);
+                getDifficulty.CurrentDifficultySpeed(difficulty, level);
             }
             var playerName = getGameOverMenu.ShowGameOverMenu(fruitAndScore);
             saveScoreAndName.AddHiScore(playerName, fruitAndScore);

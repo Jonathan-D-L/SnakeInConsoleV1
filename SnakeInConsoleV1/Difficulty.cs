@@ -9,7 +9,7 @@ namespace SnakeInConsoleV1
 {
     internal class Difficulty
     {
-        public void CurrentDifficulty(int difficulty, int level)
+        public void CurrentDifficultySpeed(int difficulty, int level)
         {
             if (difficulty == 0)
             {
