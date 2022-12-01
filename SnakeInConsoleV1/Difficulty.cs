@@ -19,7 +19,7 @@ namespace SnakeInConsoleV1
                     System.Threading.Thread.Sleep(225);
                 if (level == 2)
                     System.Threading.Thread.Sleep(175);
-                if (level == 3)
+                if (level >= 3)
                     System.Threading.Thread.Sleep(150);
             }
             else if (difficulty == 1)
@@ -30,7 +30,7 @@ namespace SnakeInConsoleV1
                     System.Threading.Thread.Sleep(125);
                 if (level == 2)
                     System.Threading.Thread.Sleep(100);
-                if (level == 3)
+                if (level >= 3)
                     System.Threading.Thread.Sleep(75);
 
             }
@@ -42,7 +42,7 @@ namespace SnakeInConsoleV1
                     System.Threading.Thread.Sleep(60);
                 if (level == 2)
                     System.Threading.Thread.Sleep(45);
-                if (level == 3)
+                if (level >= 3)
                     System.Threading.Thread.Sleep(30);
             }
         }

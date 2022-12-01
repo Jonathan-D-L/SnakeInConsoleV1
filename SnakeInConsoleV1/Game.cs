@@ -28,7 +28,7 @@ namespace SnakeInConsoleV1.Models
 
             var gridX = new int[28];
             var gridY = new int[26];
-            var fruitAndScore = new int[2];
+            var fruitAndScore = new int[3];
             var keyList = new List<ConsoleKeyInfo>();
 
             var snake = getSnake.GetSnake();
@@ -42,26 +42,23 @@ namespace SnakeInConsoleV1.Models
             var action = 'w';
             while (true)
             {
-                if (snake.Count == sLengthMax && level < 3)
+                if (snake.Count == sLengthMax && level < 4)
                 {
                     level++;
                 }
                 if (level == 1 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    snake = getSnake.GetSnake();
                     color = getColors.GetBlueSet();
                 }
                 if (level == 2 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    snake = getSnake.GetSnake();
                     color = getColors.GetPurpleSet();
                 }
                 if (level == 3 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    snake = getSnake.GetSnake();
                     color = getColors.GetRedSet();
                 }
                 string render = "";
@@ -80,7 +77,7 @@ namespace SnakeInConsoleV1.Models
                     score++;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
-                fruitAndScore = getScore.GetScore(score, difficulty);
+                fruitAndScore = getScore.GetScore(score, difficulty, level);
                 var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
                 var renderBoard = new List<string>();
                 renderBoard.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
@@ -136,7 +133,8 @@ namespace SnakeInConsoleV1.Models
                     }
                     renderBoard.Add($"[on rgb({color[0]})]  \r\n[/]"); //border
                 }
-                renderBoard.Add($"[on rgb({color[0]})]                                                            [/]"); //border
+                renderBoard.Add($"[on rgb({color[0]})]                         " +
+                    $"                                   [/]"); //border
                 foreach (var r in renderBoard)
                 {
                     render += r;
