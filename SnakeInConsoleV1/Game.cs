@@ -82,10 +82,11 @@ namespace SnakeInConsoleV1.Models
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = getScore.GetScore(score, difficulty);
                 var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
-                render += $"[white on rgb({color[0]})]{scoreString}\r\n[/]"; //border top
+                var renderBoard = new List<string>();
+                renderBoard.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
                 for (int y = 0; y < gridY.Length; y++)
                 {
-                    render += $"[on rgb({color[0]})]  [/]"; //border
+                    renderBoard.Add($"[on rgb({color[0]})]  [/]"); //border
                     for (int x = 0; x < gridX.Length; x++)
                     {
                         var s = snakeOrdered[index];
@@ -99,25 +100,46 @@ namespace SnakeInConsoleV1.Models
                             {
                                 index++;
                             }
-                            render += $"[on rgb({color[0]})]  [/]"; //snake
+                            if (renderBoard.Last().Contains(color[0]) && renderBoard.Count > 0)
+                            {
+                                var lastRender = renderBoard.Select(r => r).Last();
+                                var rSquare = lastRender.Insert(20, "  ");
+                                renderBoard.RemoveAt(renderBoard.Count -1);
+                                renderBoard.Add(rSquare);
+                            }
+                            else
+                            {
+                                renderBoard.Add($"[on rgb({color[0]})]  [/]"); //snake
+                            }
                         }
                         else
                         {
                             if (y == fruit.First().PosY && x == fruit.First().PosX)
                             {
-                                render += $"[on rgb({color[2]})]  [/]"; //fruit
+                                renderBoard.Add($"[on rgb({color[2]})]  [/]"); //fruit
                             }
                             else
                             {
-                                render += $"[on rgb({color[1]})]  [/]"; //background
+                                if (renderBoard.Last().Contains(color[1]) && renderBoard.Count > 0)
+                                {
+                                    var lastRender = renderBoard.Select(r => r).Last();
+                                    var rSquare = lastRender.Insert(21, "  ");
+                                    renderBoard.RemoveAt(renderBoard.Count -1);
+                                    renderBoard.Add(rSquare);
+                                }
+                                else
+                                {
+                                    renderBoard.Add($"[on rgb({color[1]})]  [/]"); //background
+                                }
                             }
                         }
                     }
-                    render += $"[on rgb({color[0]})]  \r\n[/]"; //border
+                    renderBoard.Add($"[on rgb({color[0]})]  \r\n[/]"); //border
                 }
-                for (int x = 0; x <= gridX.Length + 1; x++)
+                renderBoard.Add($"[on rgb({color[0]})]                                                            [/]"); //border
+                foreach (var r in renderBoard)
                 {
-                    render += $"[on rgb({color[0]})]  [/]"; //border
+                    render += r;
                 }
                 Console.Clear();
                 AnsiConsole.Markup(render);
