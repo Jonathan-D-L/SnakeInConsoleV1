@@ -1,4 +1,5 @@
 ﻿using SnakeInConsoleV1.GameMenus;
+using SnakeInConsoleV1.Helpers;
 using SnakeInConsoleV1.Models;
 using Spectre.Console;
 using System;
@@ -13,20 +14,15 @@ namespace SnakeInConsoleV1
     {
         public void ShowStartMenu()
         {
-
             var playGame = new Game();
-            var showHiScores = new HiScores();
-            var getStartMenu = new StartMenu();
-            var getSubMenuDifficulty = new SubMenuDifficulty();
-            var getHiScoresMenu = new HiscoresMenu();
             var selector = 0;
             var difficulty = 0;
             while (true)
             {
-                selector = getStartMenu.ShowStartMenu(selector);
+                selector = StartMenu.ShowStartMenu(selector);
                 if (selector == 0)
                 {
-                    difficulty = getSubMenuDifficulty.ShowSubMenuDifficulty(difficulty);
+                    difficulty = SubMenuDifficulty.ShowSubMenuDifficulty(difficulty);
                     if (difficulty != 3)
                     {
                         playGame.PlayGame(difficulty);
@@ -38,8 +34,8 @@ namespace SnakeInConsoleV1
                 }
                 if (selector == 1)
                 {
-                    var hiScores = showHiScores.GetHiScoresFromFile();
-                    getHiScoresMenu.ShowHiscoresMenu(hiScores);
+                    var hiScores = HiScoresHelper.GetHiScoresFromFile();
+                    SubHiscoresMenu.ShowHiscoresMenu(hiScores);
                 }
                 if (selector == 2)
                 {

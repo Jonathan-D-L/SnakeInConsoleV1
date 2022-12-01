@@ -1,4 +1,3 @@
-﻿using SnakeInConsoleV1;
-using SnakeInConsoleV1.Models;
+﻿using SnakeInConsoleV1.Models;
 var start = new Start();
 start.SetWindowProp();

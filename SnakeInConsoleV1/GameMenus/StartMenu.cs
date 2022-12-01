@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1.GameMenus
 {
-    internal class StartMenu
+    internal static class StartMenu
     {
-        public int ShowStartMenu(int selector)
+        public static int ShowStartMenu(int selector)
         {
             var startImg = new CanvasImage("images\\Start.png");
             var renderData = new List<string>();

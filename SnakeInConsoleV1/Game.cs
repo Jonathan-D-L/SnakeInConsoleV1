@@ -1,4 +1,5 @@
 ﻿using SnakeInConsoleV1.GameMenus;
+using SnakeInConsoleV1.Helpers;
 using Spectre.Console;
 using System;
 using System.Collections;
@@ -17,14 +18,6 @@ namespace SnakeInConsoleV1.Models
         {
             var getSnake = new Snake();
             var getFruit = new Fruit();
-            var getColors = new ColorSet();
-            var getScore = new ScoreCounter();
-            var getDifficulty = new Difficulty();
-            var saveScoreAndName = new HiScores();
-            var getScoreString = new RenderScore();
-            var getPlayerInput = new PlayerInput();
-            var getGameOverMenu = new GameOverMenu();
-            var getSubMenuPlayAgain = new SubMenuPlayAgain();
 
             var gridX = new int[28];
             var gridY = new int[26];
@@ -32,7 +25,7 @@ namespace SnakeInConsoleV1.Models
             var keyList = new List<ConsoleKeyInfo>();
 
             var snake = getSnake.GetSnake();
-            var color = getColors.GetGreenSet();
+            var color = ColorSetHelper.GetGreenSet();
             var fruit = getFruit.SpawnFruit(snake);
 
             var level = 0;
@@ -49,20 +42,20 @@ namespace SnakeInConsoleV1.Models
                 if (level == 1 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    color = getColors.GetBlueSet();
+                    color = ColorSetHelper.GetBlueSet();
                 }
                 if (level == 2 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    color = getColors.GetPurpleSet();
+                    color = ColorSetHelper.GetPurpleSet();
                 }
                 if (level == 3 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
-                    color = getColors.GetRedSet();
+                    color = ColorSetHelper.GetRedSet();
                 }
-                string render = "";
-                action = getPlayerInput.GetPLayerInput(action, keyList);
+                var render = string.Empty;
+                action = PlayerInputHelper.GetPLayerInput(action, keyList);
                 getSnake.MoveSnake(action);
                 var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
                 if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
@@ -77,8 +70,8 @@ namespace SnakeInConsoleV1.Models
                     score++;
                 }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
-                fruitAndScore = getScore.GetScore(score, difficulty, level);
-                var scoreString = getScoreString.ScoreToRendableString(fruitAndScore);
+                fruitAndScore = ScoreCountHelper.GetScore(score, difficulty, level);
+                var scoreString = RenderScoreHelper.ScoreToRendableString(fruitAndScore);
                 var listToRender = new List<string>();
                 listToRender.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
                 for (int y = 0; y < gridY.Length; y++)
@@ -101,7 +94,7 @@ namespace SnakeInConsoleV1.Models
                             {
                                 var lastRender = listToRender.Select(r => r).Last();
                                 var squarePixel = lastRender.Insert(20, "  ");
-                                listToRender.RemoveAt(listToRender.Count -1);
+                                listToRender.RemoveAt(listToRender.Count - 1);
                                 listToRender.Add(squarePixel);
                             }
                             else
@@ -121,7 +114,7 @@ namespace SnakeInConsoleV1.Models
                                 {
                                     var lastRender = listToRender.Select(r => r).Last();
                                     var squarePixel = lastRender.Insert(21, "  ");
-                                    listToRender.RemoveAt(listToRender.Count -1);
+                                    listToRender.RemoveAt(listToRender.Count - 1);
                                     listToRender.Add(squarePixel);
                                 }
                                 else
@@ -141,11 +134,11 @@ namespace SnakeInConsoleV1.Models
                 }
                 Console.Clear();
                 AnsiConsole.Markup(render);
-                getDifficulty.CurrentDifficultySpeed(difficulty, level);
+                DifficultyHelper.CurrentDifficultySpeed(difficulty, level);
             }
-            var playerName = getGameOverMenu.ShowGameOverMenu(fruitAndScore);
-            saveScoreAndName.AddHiScore(playerName, fruitAndScore);
-            var playAgain = getSubMenuPlayAgain.ShowSubMenuPlayAgain(fruitAndScore);
+            var playerName = GameOverMenu.ShowGameOverMenu(fruitAndScore);
+            HiScoresHelper.AddHiScore(playerName, fruitAndScore);
+            var playAgain = SubMenuPlayAgain.ShowSubMenuPlayAgain(fruitAndScore);
             if (playAgain == 1)
             {
                 PlayGame(difficulty);

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1.GameMenus
 {
-    internal class SubMenuPlayAgain
+    internal static class SubMenuPlayAgain
     {
-        public int ShowSubMenuPlayAgain(int[] fruitAndScore)
+        public static int ShowSubMenuPlayAgain(int[] fruitAndScore)
         {
             var gameOverImg = new CanvasImage("images\\GameOver.png");
             var renderData = new List<string>();

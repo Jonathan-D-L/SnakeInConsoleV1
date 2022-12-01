@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using SnakeInConsoleV1.Helpers;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1.GameMenus
 {
-    internal class GameOverMenu
+    internal static class GameOverMenu
     {
-        public string ShowGameOverMenu(int[] fruitAndScore)
+        public static string ShowGameOverMenu(int[] fruitAndScore)
         {
             var gameOverImg = new CanvasImage("images\\GameOver.png");
             var playerName = string.Empty;
-            var getHiScores = new HiScores();
-            var hiScores = getHiScores.GetHiScoresFromFile();
+            var hiScores = HiScoresHelper.GetHiScoresFromFile();
             var fruit = fruitAndScore[0];
             var a = fruit.ToString();
             var spacesNeded = 10 - a.Length;
