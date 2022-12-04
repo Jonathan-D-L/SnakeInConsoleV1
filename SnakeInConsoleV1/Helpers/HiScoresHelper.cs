@@ -20,10 +20,13 @@ namespace SnakeInConsoleV1.Helpers
             var scores = new List<playerScore>();
             if (File.Exists($"{directory}\\{fileName}"))
             {
-                string jsonProductsFile = File.ReadAllText($"{directory}\\{fileName}");
-                var productsInFile = JsonConvert.DeserializeObject<IEnumerable<playerScore>>(jsonProductsFile);
-                if (productsInFile != null)
-                    scores.AddRange(productsInFile);
+                string HiscoresFile = File.ReadAllText($"{directory}\\{fileName}");
+                var hiScoresInFile = JsonConvert.DeserializeObject<IEnumerable<playerScore>>(HiscoresFile);
+                if (hiScoresInFile != null)
+                {
+                    scores.AddRange(hiScoresInFile);
+                }
+                
             }
             if (scores.Any())
             {
@@ -57,6 +60,7 @@ namespace SnakeInConsoleV1.Helpers
                 string HiscoresFile = $"{directory}\\{fileName}";
                 string addHiScores = JsonConvert.SerializeObject(scores, Formatting.Indented);
                 File.WriteAllText(HiscoresFile, addHiScores);
+                
             }
         }
         public static void CheckForHiScoresFile()
