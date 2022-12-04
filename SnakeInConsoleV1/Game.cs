@@ -56,7 +56,6 @@ namespace SnakeInConsoleV1.Models
                 }
                 var render = string.Empty;
                 action = PlayerInputHelper.GetPLayerInput(action, keyList);
-                getSnake.MoveSnake(action);
                 var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
                 if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
                 {
@@ -69,6 +68,7 @@ namespace SnakeInConsoleV1.Models
                     fruit = getFruit.SpawnFruit(snake);
                     score++;
                 }
+                getSnake.MoveSnake(action);
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = ScoreCountHelper.GetScore(score, difficulty, level);
                 var scoreString = RenderScoreHelper.ScoreToRendableString(fruitAndScore);
