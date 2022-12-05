@@ -73,7 +73,7 @@ namespace SnakeInConsoleV1.Models
                 fruitAndScore = ScoreCountHelper.GetScore(score, difficulty, level);
                 var scoreString = RenderScoreHelper.ScoreToRendableString(fruitAndScore);
                 var listToRender = new List<string>();
-                listToRender.Add($"[white on rgb({color[0]})]{scoreString}\r\n[/]"); //border top
+                listToRender.Add($"[white on rgb({color[0]})]{scoreString}[/]\r\n"); //border top
                 for (int y = 0; y < gridY.Length; y++)
                 {
                     listToRender.Add($"[on rgb({color[0]})]  [/]"); //border
@@ -124,7 +124,7 @@ namespace SnakeInConsoleV1.Models
                             }
                         }
                     }
-                    listToRender.Add($"[on rgb({color[0]})]  \r\n[/]"); //border
+                    listToRender.Add($"[on rgb({color[0]})]  [/]\r\n"); //border
                 }
                 listToRender.Add($"[on rgb({color[0]})]                         " +
                         $"                                   [/]"); //border
