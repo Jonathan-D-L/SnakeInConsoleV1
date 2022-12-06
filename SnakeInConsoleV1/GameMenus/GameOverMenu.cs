@@ -14,7 +14,7 @@ namespace SnakeInConsoleV1.GameMenus
         {
             var gameOverImg = new CanvasImage("images\\GameOver.png");
             var playerName = string.Empty;
-            var hiScores = HiScoresHelper.GetHiScoresFromFile();
+            var hiScores = HighScoresHelper.GetHiScoresFromFile();
             var fruit = fruitAndScore[0];
             var a = fruit.ToString();
             var spacesNeded = 10 - a.Length;

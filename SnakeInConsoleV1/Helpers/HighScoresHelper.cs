@@ -11,10 +11,10 @@ using System.Xml.Linq;
 
 namespace SnakeInConsoleV1.Helpers
 {
-    internal static class HiScoresHelper
+    internal static class HighScoresHelper
     {
         static readonly string directory = "Files";
-        static readonly string fileName = "HiScoresHelper.json";
+        static readonly string fileName = "HighScoresHelper.json";
         public static List<playerScore> GetHiScoresFromFile()
         {
             var scores = new List<playerScore>();

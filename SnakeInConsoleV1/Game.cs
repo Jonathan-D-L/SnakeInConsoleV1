@@ -137,7 +137,7 @@ namespace SnakeInConsoleV1.Models
                 DifficultyHelper.CurrentDifficultySpeed(difficulty, level);
             }
             var playerName = GameOverMenu.ShowGameOverMenu(fruitAndScore);
-            HiScoresHelper.AddHiScore(playerName, fruitAndScore);
+            HighScoresHelper.AddHiScore(playerName, fruitAndScore);
             var playAgain = SubMenuPlayAgain.ShowSubMenuPlayAgain(fruitAndScore);
             if (playAgain == 1)
             {

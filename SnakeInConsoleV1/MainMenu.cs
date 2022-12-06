@@ -34,7 +34,7 @@ namespace SnakeInConsoleV1
                 }
                 if (selector == 1)
                 {
-                    var hiScores = HiScoresHelper.GetHiScoresFromFile();
+                    var hiScores = HighScoresHelper.GetHiScoresFromFile();
                     SubHiscoresMenu.ShowHiscoresMenu(hiScores);
                 }
                 if (selector == 2)
