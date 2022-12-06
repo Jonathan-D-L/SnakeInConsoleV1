@@ -21,8 +21,7 @@ namespace SnakeInConsoleV1.Models
             Console.TreatControlCAsInput = true;
             Console.CursorVisible = false;
             HighScoresHelper.CheckForHiScoresFile();
-            var showStartMenu = new MainMenu();
-            showStartMenu.ShowStartMenu();
+            MainMenu.ShowStartMenu();
         }
     }
 }

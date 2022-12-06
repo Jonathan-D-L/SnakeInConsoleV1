@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {
-    internal class MainMenu
+    internal static class MainMenu
     {
-        public void ShowStartMenu()
+        public static void ShowStartMenu()
         {
             var playGame = new Game();
             var selector = 0;
