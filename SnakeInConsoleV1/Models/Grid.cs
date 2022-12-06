@@ -17,9 +17,10 @@ namespace SnakeInConsoleV1.Models
             _posY = posY;
             _posX = posX;
         }
-        public Grid()
+        private Grid()
         {
         }
+        public static Grid Instance { get; } = new Grid();
         public int PosY
         {
             get { return _posY; }

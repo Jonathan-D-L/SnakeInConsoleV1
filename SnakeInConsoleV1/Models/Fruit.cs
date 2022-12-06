@@ -35,7 +35,7 @@ namespace SnakeInConsoleV1.Models
         public List<Fruit> SpawnFruit(List<Snake> snake)
         {
             var rand = new Random();
-            var getGrid = new Grid();
+            var getGrid = Grid.Instance;
             var grid = getGrid.GetGrid();
             grid.RemoveAll(g => snake.Exists(s => s.PosX == g.PosX && s.PosY == g.PosY));
             grid.RemoveAll(g => fruit.Exists(f => f.PosX == g.PosX && f.PosY == g.PosY));
