@@ -33,6 +33,8 @@ namespace SnakeInConsoleV1.Models
             var index = 0;
             var sLengthMax = 503;
             var action = 'w';
+            var FrameCount = 0;
+            var activateOnFrame = 9 - (difficulty * 2);
             while (true)
             {
                 if (snake.Count == sLengthMax && level < 4)
@@ -42,16 +44,19 @@ namespace SnakeInConsoleV1.Models
                 if (level == 1 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
+                    activateOnFrame--;
                     color = ColorSetHelper.GetBlueSet();
                 }
                 if (level == 2 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
+                    activateOnFrame--;
                     color = ColorSetHelper.GetPurpleSet();
                 }
                 if (level == 3 && snake.Count >= sLengthMax)
                 {
                     snake.RemoveRange(3, snake.Count - 3);
+                    activateOnFrame--;
                     color = ColorSetHelper.GetRedSet();
                 }
                 var render = string.Empty;
@@ -68,7 +73,16 @@ namespace SnakeInConsoleV1.Models
                     fruit = getFruit.SpawnFruit(snake);
                     score++;
                 }
-                getSnake.MoveSnake(action);
+                FrameCount++;
+                if (FrameCount == activateOnFrame)
+                {
+                    getSnake.MoveSnake(action);
+                    if (keyList.Count != 0)
+                    {
+                        keyList.RemoveAt(0);
+                    }
+                    FrameCount = 0;
+                }
                 var snakeOrdered = snake.OrderBy(s => s.PosY).ThenBy(s => s.PosX).ToList();
                 fruitAndScore = ScoreCountHelper.GetScore(score, difficulty, level);
                 var scoreString = RenderScoreHelper.ScoreToRendableString(fruitAndScore);
@@ -134,7 +148,7 @@ namespace SnakeInConsoleV1.Models
                 }
                 Console.Clear();
                 AnsiConsole.Markup(render);
-                DifficultyHelper.CurrentDifficultySpeed(difficulty, level);
+                Thread.Sleep(1);
             }
             var playerName = GameOverMenu.ShowGameOverMenu(fruitAndScore);
             HiScoresHelper.AddHiScore(playerName, fruitAndScore);

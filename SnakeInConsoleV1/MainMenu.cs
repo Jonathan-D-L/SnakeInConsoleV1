@@ -1,12 +1,6 @@
 ﻿using SnakeInConsoleV1.GameMenus;
 using SnakeInConsoleV1.Helpers;
 using SnakeInConsoleV1.Models;
-using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeInConsoleV1
 {

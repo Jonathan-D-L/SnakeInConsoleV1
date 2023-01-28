@@ -45,10 +45,6 @@ namespace SnakeInConsoleV1.Helpers
                         break;
                 }
             }
-            if (keyList.Count != 0)
-            {
-                keyList.RemoveAt(0);
-            }
             return action;
         }
     }
