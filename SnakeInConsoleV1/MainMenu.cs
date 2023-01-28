@@ -4,9 +4,9 @@ using SnakeInConsoleV1.Models;
 
 namespace SnakeInConsoleV1
 {
-    internal class MainMenu
+    internal static class MainMenu
     {
-        public void ShowStartMenu()
+        public static void ShowStartMenu()
         {
             var playGame = new Game();
             var selector = 0;
@@ -28,7 +28,7 @@ namespace SnakeInConsoleV1
                 }
                 if (selector == 1)
                 {
-                    var hiScores = HiScoresHelper.GetHiScoresFromFile();
+                    var hiScores = HighScoresHelper.GetHiScoresFromFile();
                     SubHiscoresMenu.ShowHiscoresMenu(hiScores);
                 }
                 if (selector == 2)

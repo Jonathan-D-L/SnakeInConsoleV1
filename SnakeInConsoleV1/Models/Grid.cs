@@ -12,7 +12,7 @@ namespace SnakeInConsoleV1.Models
         List<Grid> grid = new();
         private int _posY;
         private int _posX;
-        private Grid(int posY, int posX)
+        public Grid(int posY, int posX)
         {
             _posY = posY;
             _posX = posX;

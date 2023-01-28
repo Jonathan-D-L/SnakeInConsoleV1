@@ -151,7 +151,7 @@ namespace SnakeInConsoleV1.Models
                 Thread.Sleep(1);
             }
             var playerName = GameOverMenu.ShowGameOverMenu(fruitAndScore);
-            HiScoresHelper.AddHiScore(playerName, fruitAndScore);
+            HighScoresHelper.AddHiScore(playerName, fruitAndScore);
             var playAgain = SubMenuPlayAgain.ShowSubMenuPlayAgain(fruitAndScore);
             if (playAgain == 1)
             {

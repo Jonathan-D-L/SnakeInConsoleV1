@@ -20,9 +20,8 @@ namespace SnakeInConsoleV1.Models
             Console.Title = "Snake";
             Console.TreatControlCAsInput = true;
             Console.CursorVisible = false;
-            HiScoresHelper.CheckForHiScoresFile();
-            var showStartMenu = new MainMenu();
-            showStartMenu.ShowStartMenu();
+            HighScoresHelper.CheckForHiScoresFile();
+            MainMenu.ShowStartMenu();
         }
     }
 }
