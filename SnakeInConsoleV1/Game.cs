@@ -61,21 +61,21 @@ namespace SnakeInConsoleV1.Models
                 }
                 var render = string.Empty;
                 action = PlayerInputHelper.GetPLayerInput(action, keyList);
-                var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
-                if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
-                {
-                    break;
-                }
-                if (snake.First().PosX == fruit.First().PosX && snake.First().PosY == fruit.First().PosY)
-                {
-                    getSnake.GetSnakeTail();
-                    snake = getSnake.GetSnake();
-                    fruit = getFruit.SpawnFruit(snake);
-                    score++;
-                }
                 FrameCount++;
                 if (FrameCount == activateOnFrame)
                 {
+                    var snakeColided = snake.GroupBy(s => new { s.PosY, s.PosX }).Where(g => g.Count() > 1).Select(g => g.Key).FirstOrDefault();
+                    if (snake.Any(s => s.PosX == -1 || s.PosX == 28 || s.PosY == -1 || s.PosY == 26) || snakeColided != null)
+                    {
+                        break;
+                    }
+                    if (snake.First().PosX == fruit.First().PosX && snake.First().PosY == fruit.First().PosY)
+                    {
+                        getSnake.GetSnakeTail();
+                        snake = getSnake.GetSnake();
+                        fruit = getFruit.SpawnFruit(snake);
+                        score++;
+                    }
                     getSnake.MoveSnake(action);
                     if (keyList.Count != 0)
                     {
